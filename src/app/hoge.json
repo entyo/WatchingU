@@ -1,0 +1,418 @@
+{
+ "query": {
+  "count": 8,
+  "created": "2018-01-07T07:16:16Z",
+  "lang": "ja",
+  "results": {
+   "item": [
+    {
+     "title": "GLSLでいい感じのヘッダ画像をシュッとつくる",
+     "link": "https://www.slideshare.net/E_ntyo/glsl-81664967",
+     "doc": "glsl-171106154757",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?cb=1509983390\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> hojiroLT #9 https://hojiro-lt.connpass.com/event/63037/\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?cb=1509983390\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> hojiroLT #9 https://hojiro-lt.connpass.com/event/63037/\n      ",
+     "pubDate": "Mon, 06 Nov 2017 15:47:57 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/glsl-81664967",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/glsl-81664967"
+      },
+      "title": "GLSLでいい感じのヘッダ画像をシュッとつくる",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "hojiroLT #9 https://hojiro-lt.connpass.com/event/63037/"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?cb=1509983390\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> hojiroLT #9 https://hojiro-lt.connpass.com/event/63037/"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?cb=1509983390",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/glsl-171106154757/95/glsl-1-638.jpg?cb=1509983390",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/aJ3WYyqnaT9SpX\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/glsl-81664967\" title=\"GLSLでいい感じのヘッダ画像をシュッとつくる\" target=\"_blank\">GLSLでいい感じのヘッダ画像をシュッとつくる</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "69",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?cb=1509983390",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "イキリオタクと学ぶsvg",
+     "link": "https://www.slideshare.net/E_ntyo/svg-75316403",
+     "doc": "svg-170423055844",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/svg-170423055844-thumbnail-2.jpg?cb=1492927348\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://hojiro-lt.connpass.com/event/54693/\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/svg-170423055844-thumbnail-2.jpg?cb=1492927348\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://hojiro-lt.connpass.com/event/54693/\n      ",
+     "pubDate": "Sun, 23 Apr 2017 05:58:44 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/svg-75316403",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/svg-75316403"
+      },
+      "title": "イキリオタクと学ぶsvg",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "https://hojiro-lt.connpass.com/event/54693/"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/svg-170423055844-thumbnail-2.jpg?cb=1492927348\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://hojiro-lt.connpass.com/event/54693/"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/svg-170423055844-thumbnail-2.jpg?cb=1492927348",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/svg-170423055844/95/svg-1-638.jpg?cb=1492927348",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/D8TfDtZRnBzCHC\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/svg-75316403\" title=\"イキリオタクと学ぶsvg\" target=\"_blank\">イキリオタクと学ぶsvg</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "223",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/svg-170423055844-thumbnail-2.jpg?cb=1492927348",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "angular-cliでAngular2入門した話",
+     "link": "https://www.slideshare.net/E_ntyo/angularcliangular2",
+     "doc": "6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500-thumbnail-2.jpg?cb=1489320370\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> 入社前の一発芸\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500-thumbnail-2.jpg?cb=1489320370\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> 入社前の一発芸\n      ",
+     "pubDate": "Sun, 12 Mar 2017 12:05:00 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/angularcliangular2",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/angularcliangular2"
+      },
+      "title": "angular-cliでAngular2入門した話",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "入社前の一発芸"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500-thumbnail-2.jpg?cb=1489320370\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> 入社前の一発芸"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500-thumbnail-2.jpg?cb=1489320370",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500/95/angularcliangular2-1-638.jpg?cb=1489320370",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/IbdRcVX2PHPwy1\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/angularcliangular2\" title=\"angular-cliでAngular2入門した話\" target=\"_blank\">angular-cliでAngular2入門した話</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "404",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/6yrrkqrpspqpq273gmcw-signature-2e38b0028dd73c32dc7638f41ec896db76a7cff2cb3521c4e30b20a7e109e237-poli-170312120500-thumbnail-2.jpg?cb=1489320370",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "ぼくのかんがえたさいきょうのDash Buton",
+     "link": "https://www.slideshare.net/E_ntyo/dash-buton",
+     "doc": "20161119-161218131319",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161119-161218131319-thumbnail-2.jpg?cb=1482066926\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> ソースコードはこちら\nhttps://github.com/entyo/SanfujinkaDashButton\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161119-161218131319-thumbnail-2.jpg?cb=1482066926\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> ソースコードはこちら\nhttps://github.com/entyo/SanfujinkaDashButton\n      ",
+     "pubDate": "Sun, 18 Dec 2016 13:13:19 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/dash-buton",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/dash-buton"
+      },
+      "title": "ぼくのかんがえたさいきょうのDash Buton",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "ソースコードはこちら\nhttps://github.com/entyo/SanfujinkaDashButton"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161119-161218131319-thumbnail-2.jpg?cb=1482066926\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> ソースコードはこちら\nhttps://github.com/entyo/SanfujinkaDashButton"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/20161119-161218131319-thumbnail-2.jpg?cb=1482066926",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/20161119-161218131319/95/dash-buton-1-638.jpg?cb=1482066926",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/4fN9vnPxUaZBPp\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/dash-buton\" title=\"ぼくのかんがえたさいきょうのDash Buton\" target=\"_blank\">ぼくのかんがえたさいきょうのDash Buton</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "497",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/20161119-161218131319-thumbnail-2.jpg?cb=1482066926",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "seiheki.online #1",
+     "link": "https://www.slideshare.net/E_ntyo/seihekionline-1",
+     "doc": "feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013-thumbnail-2.jpg?cb=1481461294\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://www.seiheki.online の話\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013-thumbnail-2.jpg?cb=1481461294\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://www.seiheki.online の話\n      ",
+     "pubDate": "Sun, 11 Dec 2016 13:00:13 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/seihekionline-1",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/seihekionline-1"
+      },
+      "title": "seiheki.online #1",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "https://www.seiheki.online の話"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013-thumbnail-2.jpg?cb=1481461294\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> https://www.seiheki.online の話"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013-thumbnail-2.jpg?cb=1481461294",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013/95/seihekionline-1-1-638.jpg?cb=1481461294",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/sXVWEr7uUYfoCm\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/seihekionline-1\" title=\"seiheki.online #1\" target=\"_blank\">seiheki.online #1</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "179",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/feh9x5nntmgwkv4zx25a-signature-e3cbb15a0520113aaaf5ea5e2b5711a22afa6c2b538eca4fa3694e211581a741-poli-161211130013-thumbnail-2.jpg?cb=1481461294",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "独断と偏見で選ぶこのOSSがアツい！2016",
+     "link": "https://www.slideshare.net/E_ntyo/oss2016",
+     "doc": "20161001lt-161002064524",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161001lt-161002064524-thumbnail-2.jpg?cb=1475390912\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> CookHack#1 (https://atnd.org/events/80393) での発表です。\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161001lt-161002064524-thumbnail-2.jpg?cb=1475390912\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> CookHack#1 (https://atnd.org/events/80393) での発表です。\n      ",
+     "pubDate": "Sun, 02 Oct 2016 06:45:23 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/oss2016",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/oss2016"
+      },
+      "title": "独断と偏見で選ぶこのOSSがアツい！2016",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "CookHack#1 (https://atnd.org/events/80393) での発表です。"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/20161001lt-161002064524-thumbnail-2.jpg?cb=1475390912\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> CookHack#1 (https://atnd.org/events/80393) での発表です。"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/20161001lt-161002064524-thumbnail-2.jpg?cb=1475390912",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/20161001lt-161002064524/95/oss2016-1-638.jpg?cb=1475390912",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/nLa5nmJdiSpwJ2\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/oss2016\" title=\"独断と偏見で選ぶこのOSSがアツい！2016\" target=\"_blank\">独断と偏見で選ぶこのOSSがアツい！2016</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "236",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/20161001lt-161002064524-thumbnail-2.jpg?cb=1475390912",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "おくるまのWeb API",
+     "link": "https://www.slideshare.net/E_ntyo/web-api-63877148",
+     "doc": "ltmatch1-160710002945",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/ltmatch1-160710002945-thumbnail-2.jpg?cb=1468110767\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> About eｄｇｙ automotive technology and Web API for automotive\n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/ltmatch1-160710002945-thumbnail-2.jpg?cb=1468110767\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> About eｄｇｙ automotive technology and Web API for automotive\n      ",
+     "pubDate": "Sun, 10 Jul 2016 00:29:45 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/web-api-63877148",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/web-api-63877148"
+      },
+      "title": "おくるまのWeb API",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain",
+       "content": "About eｄｇｙ automotive technology and Web API for automotive"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/ltmatch1-160710002945-thumbnail-2.jpg?cb=1468110767\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> About eｄｇｙ automotive technology and Web API for automotive"
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/ltmatch1-160710002945-thumbnail-2.jpg?cb=1468110767",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/ltmatch1-160710002945/95/web-api-1-638.jpg?cb=1468110767",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/yKY1RIBTmk2aJt\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/web-api-63877148\" title=\"おくるまのWeb API\" target=\"_blank\">おくるまのWeb API</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "298",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/ltmatch1-160710002945-thumbnail-2.jpg?cb=1468110767",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    },
+    {
+     "title": "妹の有無によるコーディング能率の変化",
+     "link": "https://www.slideshare.net/E_ntyo/ss-36428871",
+     "doc": "random-140629061519-phpapp01",
+     "description": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/random-140629061519-phpapp01-thumbnail-2.jpg?cb=1404022934\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> \n      ",
+     "encoded": "\n        <img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/random-140629061519-phpapp01-thumbnail-2.jpg?cb=1404022934\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> \n      ",
+     "pubDate": "Sun, 29 Jun 2014 06:15:19 GMT",
+     "guid": "https://www.slideshare.net/E_ntyo/ss-36428871",
+     "author": "E_ntyo@slideshare.net(E_ntyo)",
+     "content": {
+      "player": {
+       "url": "https://www.slideshare.net/E_ntyo/ss-36428871"
+      },
+      "title": "妹の有無によるコーディング能率の変化",
+      "credit": "E_ntyo",
+      "description": {
+       "type": "plain"
+      },
+      "text": {
+       "type": "html",
+       "content": "<img alt=\"\" src=\"//cdn.slidesharecdn.com/ss_thumbnails/random-140629061519-phpapp01-thumbnail-2.jpg?cb=1404022934\" style=\"border:1px solid #C3E6D8;float:right;\" /><br> "
+      },
+      "keywords": null,
+      "thumbnail": [
+       {
+        "height": "90",
+        "url": "//cdn.slidesharecdn.com/ss_thumbnails/random-140629061519-phpapp01-thumbnail-2.jpg?cb=1404022934",
+        "width": "120"
+       },
+       {
+        "url": "https://image.slidesharecdn.com/random-140629061519-phpapp01/95/-1-638.jpg?cb=1404022934",
+        "width": "638"
+       }
+      ]
+     },
+     "embed": "\n        <iframe src=\"https://www.slideshare.net/slideshow/embed_code/key/fNtakc5ha2lSun\" width=\"597\" height=\"486\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;\" allowfullscreen> </iframe> <div style=\"margin-bottom:5px\"> <strong> <a href=\"https://www.slideshare.net/E_ntyo/ss-36428871\" title=\"妹の有無によるコーディング能率の変化\" target=\"_blank\">妹の有無によるコーディング能率の変化</a> </strong> from <strong><a href=\"https://www.slideshare.net/E_ntyo\" target=\"_blank\">E_ntyo</a></strong> </div>\n\n\n      ",
+     "meta": {
+      "views": "477",
+      "comments": "0",
+      "thumbnail": "//cdn.slidesharecdn.com/ss_thumbnails/random-140629061519-phpapp01-thumbnail-2.jpg?cb=1404022934",
+      "type": "presentation",
+      "fullscreen_bg_color": "Black"
+     },
+     "config": {
+      "branding": null
+     },
+     "verb": "http://activitystrea.ms/schema/1.0/post",
+     "object-type": "http://activitystrea.ms/schema/1.0/posted",
+     "authorDetails": "0"
+    }
+   ]
+  }
+ }
+}

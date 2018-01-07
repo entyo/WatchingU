@@ -1,0 +1,13 @@
+<mat-card class="item-card">
+  <mat-card-header>
+    <img [src]="item.linkToThumbnail" mat-card-avatar>
+    <mat-card-title>{{item.title}}</mat-card-title>
+    <!-- <mat-card-subtitle>@{{item.author.name}}</mat-card-subtitle> -->
+  </mat-card-header>
+  <img *ngIf="item.linkToThumbnail" mat-card-image [src]="item.linkToThumbnail" alt="thumbnail">
+  <mat-card-content [innerHtml]="item.contentHTML">
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button color="primary" [href]="item.linkToContent">見に行く</a>
+  </mat-card-actions>
+</mat-card>
