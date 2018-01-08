@@ -9,6 +9,8 @@ import { HatenaService } from './hatena.service';
 import { SlideShareService } from './slideshare.service';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { ItemCardListComponent } from './item-card-list/item-card-list.component';
+import { SharedModule } from "./shared/shared.module";
+import { AppStore } from './app.store';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,15 @@ import { ItemCardListComponent } from './item-card-list/item-card-list.component
   imports: [
     BrowserModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    // .forRoot() is only used in root module(app.module.ts)
+    SharedModule.forRoot()
   ],
   providers: [
     MediumService,
     HatenaService,
-    SlideShareService
+    SlideShareService,
+    AppStore
   ],
   bootstrap: [AppComponent]
 })

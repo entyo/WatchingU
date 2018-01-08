@@ -1,3 +1,3 @@
-<div class="item-card-list" *ngFor="let item of (items)">
+<div class="item-card-list" *ngFor="let item of (store.list | async)">
   <app-item-card [item]="item"></app-item-card>
 </div>
