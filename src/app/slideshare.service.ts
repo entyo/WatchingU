@@ -28,34 +28,37 @@ interface Response {
 export class SlideShareService {
   constructor(private http: HttpClient) {}
 
-  fetchItems(): Observable<Item> {
+  fetchItems(): Observable<Item[]> {
     const user = 'e_ntyo';
     const query = `select * from rss where url='https://www.slideshare.net/rss/user/${user}'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;
-    return Observable.create((observer: Observer<Item>) => {
+    return Observable.create((observer: Observer<Item[]>) => {
       this.http
       .get(url)
       .subscribe(res => {
-        if (!res['query']['count']) {
+        const responses: Response[] = res['query']['results']['item'];
+        if (!responses) {
           observer.error(new Error('Failed to fetch medium posts.'));
           return;
         }
-
-        const responses: Response[] = res['query']['results']['item'];
-        responses
-        .map(res => {
+ 
+        const items = responses.map((res: Response) => {
           const item = new Item(
             res.title,
             new URL(res.link),
-            res.content.description.content);
+            res.content.description.content,
+            new Date(res.pubDate)
+          );
+
           if (res.content.thumbnail.length) {
             // cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?hoge=fuga
             item.linkToThumbnail = new URL('https://' + res.content.thumbnail[0].url);
           }
           return item;
-        })
-        .forEach(item => observer.next(item));
+        });
+
+        observer.next(items);
         observer.complete();
       });
     });

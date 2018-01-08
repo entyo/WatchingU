@@ -19,12 +19,13 @@ export class MediumService {
 
   constructor(private http: HttpClient) { }
 
-  fetchItems(): Observable<Item> {
+  fetchItems(): Observable<Item[]> {
     const user = 'r7kamura';
     const query = `select * from rss where url='https://medium.com/feed/@${user}'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;
-    return Observable.create((observer: Observer<Item>) => {
+
+    return Observable.create((observer: Observer<Item[]>) => {
       this.http
       .get(url)
       .subscribe(res => {
@@ -33,14 +34,18 @@ export class MediumService {
           observer.error(new Error('Failed to fetch medium posts.'));
           return;
         }
+ 
+        const items = responses.map((res: Response) => {
+          return new Item(
+            res.title,
+            new URL(res.link),
+            res.encoded,
+            new Date(res.pubDate)
+          );
+        });
 
-        responses
-        .map(res => new Item(
-          res.title,
-          new URL(res.link),
-          res.encoded
-        ))
-        .forEach(item => observer.next(item));
+        observer.next(items);
+        observer.complete();
       });
     });
   }

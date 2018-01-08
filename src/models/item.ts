@@ -6,6 +6,7 @@ export class Item {
   constructor (
     public title: String,
     public linkToContent: URL,
-    public contentHTML: String
+    public contentHTML: String,
+    public created: Date
   ) {}
 }

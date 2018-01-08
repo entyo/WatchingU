@@ -43,7 +43,8 @@ export class HatenaService {
           const item = new Item(
             res.title,
             new URL(res.link),
-            res.description
+            res.description,
+            new Date(res.pubDate)
           );
 
           const enc = res.enclosure;

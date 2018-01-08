@@ -19,13 +19,19 @@ export class ItemCardListComponent implements OnInit {
   }
 
   ngOnInit() {
-    TimerObservable.create(0, 5000)
-    .subscribe(() => {
-      this.hatena.fetchItems()
-      .subscribe(items => {
-        this.items = items;
-      });
-    });
+    // TimerObservable.create(0, 5000)
+    // .subscribe(() => {
+    //   Observable.merge(
+    //     this.hatena.fetchItems(),
+    //     this.medium.fetchItems(),
+    //     this.slideshare.fetchItems()
+    //   )
+    //   .subscribe(items => {
+    //     this.items = items.sort((item1, item2) => {
+    //       return item2.created.getTime() - item1.created.getTime()
+    //     });
+    //   });
+    // });
   }
 
 }
