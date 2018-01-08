@@ -1,7 +1,7 @@
 import { Author } from './author';
 
 export class Item {
-  author: Author;
+  public author: Author;
   public linkToThumbnail: URL;
   constructor (
     public title: String,
