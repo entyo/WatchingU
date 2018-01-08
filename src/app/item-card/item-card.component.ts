@@ -10,5 +10,16 @@ import { Item } from '../../models/item';
 export class ItemCardComponent {
   @Input() item: Item;
 
+  extractContent(str: string): string {
+    const span = document.createElement('span');
+    span.innerHTML = str;
+    const extracted = span.textContent || span.innerText;
+    return this.roundLongString(extracted);
+  };
+
+  roundLongString(str: string): string {
+    return str.slice(0, 100) + '...';
+  }
+
   constructor() {}
 }
