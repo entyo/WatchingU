@@ -5,7 +5,7 @@
     <mat-card-subtitle>{{item.created.toDateString()}}</mat-card-subtitle>
   </mat-card-header>
   <img *ngIf="item.linkToThumbnail" mat-card-image [src]="item.linkToThumbnail" alt="thumbnail">
-  <mat-card-content [innerHtml]="item.contentHTML">
+  <mat-card-content *ngIf="!item.linkToThumbnail" [innerHtml]="extractContent(item.contentHTML)">
   </mat-card-content>
   <mat-card-actions>
     <a mat-button color="primary" [href]="item.linkToContent" target="_blank">見に行く</a>
