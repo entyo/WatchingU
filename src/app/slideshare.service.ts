@@ -28,8 +28,8 @@ interface Response {
 export class SlideShareService {
   constructor(private http: HttpClient) {}
 
-  fetchItems(): Observable<Item[]> {
-    const user = 'e_ntyo';
+  fetchItems(username: string): Observable<Item[]> {
+    const user = username;
     const query = `select * from rss where url='https://www.slideshare.net/rss/user/${user}'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;

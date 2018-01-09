@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Item } from '../models/item';
+import { Person } from '../models/person';
 
 export interface AppStoreSnapshot {
   item?: {
     [id: number]: Item,
+  };
+  person?: {
+    [id: number]: Person,
   };
 }
 
@@ -21,6 +25,7 @@ export class AppStore extends BehaviorSubject<AppStoreSnapshot> {
   constructor() {
     super({
       item: {},
+      person: {}
     });
     this.subscribe(snapshot => {
       this._snapshot = snapshot;

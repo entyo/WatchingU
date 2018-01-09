@@ -23,8 +23,8 @@ export class HatenaService {
 
   constructor(private http: HttpClient) { }
 
-  fetchItems(): Observable<Item[]> {
-    const user = 'hyuki';
+  fetchItems(username: string): Observable<Item[]> {
+    const user = username;
     const query = `select * from rss where url='http://${user}.hatenablog.com/rss'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;

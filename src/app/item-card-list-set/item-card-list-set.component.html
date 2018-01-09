@@ -1,0 +1,3 @@
+<div class="item-card-list-set" *ngFor="let person of (personStore.list | async)">
+  <app-item-card-list [person]="person"></app-item-card-list>
+</div>

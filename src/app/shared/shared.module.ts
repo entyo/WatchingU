@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ItemStore } from './stores/item.store';
+import { PersonStore } from './stores/person.store';
 
 @NgModule({
   imports: [],
@@ -25,7 +26,8 @@ export class SharedModule {
     SharedModule
   ],
   providers: [
-    ItemStore
+    ItemStore,
+    PersonStore
   ],
 })
 export class RootSharedModule {

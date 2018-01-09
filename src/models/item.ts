@@ -1,9 +1,7 @@
-import { Author } from './author';
-
 export class Item {
-  public author: Author;
   public linkToThumbnail: URL;
   public id: number;
+  public personId: number;
   constructor (
     public title: String,
     public linkToContent: URL,

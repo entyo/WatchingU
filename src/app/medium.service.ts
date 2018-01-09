@@ -19,8 +19,8 @@ export class MediumService {
 
   constructor(private http: HttpClient) { }
 
-  fetchItems(): Observable<Item[]> {
-    const user = 'r7kamura';
+  fetchItems(username: string): Observable<Item[]> {
+    const user = username;
     const query = `select * from rss where url='https://medium.com/feed/@${user}'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;

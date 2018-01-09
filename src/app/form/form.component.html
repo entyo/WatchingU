@@ -1,0 +1,6 @@
+<form class="add-user-form" #addUserForm="ngForm">
+  <mat-form-field class="add-user-full-width">
+    <input matInput [(ngModel)]="username" placeholder="追加したいユーザ名(例: @potato4d)" name="username">
+  </mat-form-field>
+  <button type="submit" mat-raised-button (click)="onClick(); addUserForm.reset()" >追加 <mat-icon matSuffix>playlist_add</mat-icon></button>
+</form>

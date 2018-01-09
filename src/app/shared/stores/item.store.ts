@@ -21,34 +21,7 @@ export class ItemStore {
     });
   }
 
-  constructor(
-    private appStore: AppStore,
-    public medium: MediumService,
-    public hatena: HatenaService,
-    public slideshare: SlideShareService,
-    public store: AppStore
-  ) {
-    // YQLのリクエスト制限を超えないように
-    TimerObservable.create(0, 5000)
-    .subscribe(() => {
-      const store = this.appStore.snapshot;
-      const storeItems: Item[] = Object.keys(store.item).map(id => store.item[id]);
-      Observable.merge(
-        this.hatena.fetchItems(),
-        this.medium.fetchItems(),
-        this.slideshare.fetchItems()
-      ).subscribe(items => {
-        items.forEach(item => {
-          const itemUrl = item.linkToContent.toString();
-          const isAlreadyExists = storeItems.map(storeItems => storeItems.linkToContent.toString())
-            .some(url => url === itemUrl);
-          if (!isAlreadyExists) {
-            this.insert(item);
-          }
-        });
-      });
-    });
-  }
+  constructor(private appStore: AppStore) {}
 
   get(id: number): Observable<Item> {
     return this.appStore.map(appStore => appStore.item[id]);
