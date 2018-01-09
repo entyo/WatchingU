@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PersonStore } from "../shared/stores/person.store";
+import { PersonStore } from '../shared/stores/person.store';
 
 @Component({
   selector: 'app-item-card-list-set',

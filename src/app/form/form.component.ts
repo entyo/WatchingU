@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { ItemStore } from "../shared/stores/item.store";
-import { PersonStore } from "../shared/stores/person.store";
-import { Item } from "../../models/item";
+import { ItemStore } from '../shared/stores/item.store';
+import { PersonStore } from '../shared/stores/person.store';
+import { Item } from '../../models/item';
 import { Person } from '../../models/person';
 
 @Component({
@@ -44,6 +44,6 @@ export class FormComponent {
     .catch(e =>  {
       console.error(e);
       return;
-    })
+    });
   }
 }

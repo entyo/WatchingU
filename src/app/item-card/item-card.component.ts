@@ -15,7 +15,7 @@ export class ItemCardComponent {
     span.innerHTML = str;
     const extracted = span.textContent || span.innerText;
     return this.roundLongString(extracted);
-  };
+  }
 
   roundLongString(str: string): string {
     return str.slice(0, 100) + '...';

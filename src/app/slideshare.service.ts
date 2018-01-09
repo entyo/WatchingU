@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Item } from '../models/item';
-import 'rxjs/add/operator/map'; 
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
@@ -20,8 +20,8 @@ interface Response {
       width: string,
       height: string,
       url: string
-    }[]
-  }
+    }[];
+  };
 }
 
 @Injectable()
@@ -42,18 +42,18 @@ export class SlideShareService {
           observer.error(new Error('Failed to fetch medium posts.'));
           return;
         }
- 
-        const items = responses.map((res: Response) => {
+
+        const items = responses.map((payload: Response) => {
           const item = new Item(
-            res.title,
-            new URL(res.link),
-            res.content.description.content,
-            new Date(res.pubDate)
+            payload.title,
+            new URL(payload.link),
+            payload.content.description.content,
+            new Date(payload.pubDate)
           );
 
-          if (res.content.thumbnail.length) {
+          if (payload.content.thumbnail.length) {
             // cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?hoge=fuga
-            item.linkToThumbnail = new URL('https://' + res.content.thumbnail[0].url);
+            item.linkToThumbnail = new URL('https://' + payload.content.thumbnail[0].url);
           }
           return item;
         });

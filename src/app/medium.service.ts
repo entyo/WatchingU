@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Item } from "../models/item";
-import 'rxjs/add/operator/map'; 
+import { HttpClient } from '@angular/common/http';
+import { Item } from '../models/item';
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
@@ -27,26 +27,26 @@ export class MediumService {
 
     return Observable.create((observer: Observer<Item[]>) => {
       this.http
-      .get(url)
-      .subscribe(res => {
-        const responses: Response[] = res['query']['results']['item'];
-        if (!responses) {
-          observer.error(new Error('Failed to fetch medium posts.'));
-          return;
-        }
- 
-        const items = responses.map((res: Response) => {
-          return new Item(
-            res.title,
-            new URL(res.link),
-            res.encoded,
-            new Date(res.pubDate)
-          );
-        });
+        .get(url)
+        .subscribe(res => {
+          const responses: Response[] = res['query']['results']['item'];
+          if (!responses) {
+            observer.error(new Error('Failed to fetch medium posts.'));
+            return;
+          }
 
-        observer.next(items);
-        observer.complete();
-      });
+          const items = responses.map((payload: Response) => {
+            return new Item(
+              payload.title,
+              new URL(payload.link),
+              payload.encoded,
+              new Date(payload.pubDate)
+            );
+          });
+
+          observer.next(items);
+          observer.complete();
+        });
     });
   }
 
