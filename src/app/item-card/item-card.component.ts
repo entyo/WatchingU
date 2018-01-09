@@ -18,7 +18,8 @@ export class ItemCardComponent {
   }
 
   roundLongString(str: string): string {
-    return str.slice(0, 100) + '...';
+    const dadada = str.length > 100 ? '...' : '';
+    return str.slice(0, 100) + dadada;
   }
 
   constructor() {}
