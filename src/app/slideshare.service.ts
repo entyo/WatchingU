@@ -34,14 +34,13 @@ export class SlideShareService {
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;
     return Observable.create((observer: Observer<Item[]>) => {
-      this.http
-      .get(url)
+      this.http.get(url)
       .subscribe(res => {
-        const responses: Response[] = res['query']['results']['item'];
-        if (!responses) {
-          observer.error(new Error('Failed to fetch medium posts.'));
+        if (!res['query']['count']) {
+          observer.error(new Error('Failed to fetch slideshare posts: ' + url));
           return;
         }
+        const responses: Response[] = res['query']['results']['item'];
 
         const items = responses.map((payload: Response) => {
           const item = new Item(
@@ -59,7 +58,6 @@ export class SlideShareService {
         });
 
         observer.next(items);
-        observer.complete();
       });
     });
   }
