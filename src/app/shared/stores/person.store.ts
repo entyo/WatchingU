@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppStore } from '../../app.store';
 import { ItemStore } from '../../shared/stores/item.store';
-import { Person } from '../../../models/person';
+import { Person } from '../../shared/models/person';
 
 @Injectable()
 export class PersonStore {

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Item } from '../../models/item';
+import { Item } from '../shared/models/item';
 
 @Component({
   selector: 'app-item-card',

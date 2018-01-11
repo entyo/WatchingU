@@ -8,7 +8,7 @@ import { MediumService } from '../../medium.service';
 import { SlideShareService } from '../../slideshare.service';
 
 import { AppStore } from '../../app.store';
-import { Item } from '../../../models/item';
+import { Item } from '../models/item';
 
 @Injectable()
 export class ItemStore {

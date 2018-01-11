@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Item } from '../models/item';
-import { Person } from '../models/person';
+import { Item } from './shared/models/item';
+import { Person } from './shared/models/person';
 
 export interface AppStoreSnapshot {
   item?: {

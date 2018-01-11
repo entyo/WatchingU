@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { ItemStore } from '../shared/stores/item.store';
 import { PersonStore } from '../shared/stores/person.store';
-import { Item } from '../../models/item';
-import { Person } from '../../models/person';
+import { Item } from '../shared/models/item';
+import { Person } from '../shared/models/person';
 
 @Component({
   selector: 'app-form',

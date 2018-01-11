@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { Item } from '../../models/item';
+import { Item } from '../shared/models/item';
 import { ItemStore } from '../shared/stores/item.store';
-import { Person } from '../../models/person';
+import { Person } from '../shared/models/person';
 
 // TODO: 別のServiceに切り出す
 import { SlideShareService } from '../slideshare.service';
