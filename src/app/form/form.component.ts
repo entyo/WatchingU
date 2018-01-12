@@ -20,7 +20,6 @@ export class FormComponent {
   ) { }
 
   onClick () {
-    console.log(this.username);
     if (!this.username) {
       return;
     }
@@ -30,8 +29,7 @@ export class FormComponent {
     }
 
     // Personの追加(すでに存在したら何もしない)
-    this.personStore.list.toPromise()
-    .then(storePersons => {
+    this.personStore.list.subscribe(storePersons => {
       const isAlreadyExists = storePersons
         .map(person => person.name)
         .some(name => name === this.username);
@@ -40,10 +38,6 @@ export class FormComponent {
       }
       const newPerson = new Person(this.username);
       this.personStore.insert(newPerson);
-    })
-    .catch(e =>  {
-      console.error(e);
-      return;
     });
   }
 }
