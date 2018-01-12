@@ -30,6 +30,9 @@ export class FormComponent {
 
     // Personの追加(すでに存在したら何もしない)
     this.personStore.list.subscribe(storePersons => {
+      if (!this.username) {
+        return;
+      }
       const isAlreadyExists = storePersons
         .map(person => person.name)
         .some(name => name === this.username);
