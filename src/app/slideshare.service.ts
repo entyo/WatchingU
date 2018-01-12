@@ -33,32 +33,33 @@ export class SlideShareService {
     const query = `select * from rss where url='https://www.slideshare.net/rss/user/${user}'`;
     const format = 'json';
     const url = `https://query.yahooapis.com/v1/public/yql?q=${query}&format=${format}`;
-    return Observable.create((observer: Observer<Item[]>) => {
-      this.http.get(url)
-      .subscribe(res => {
-        if (!res['query']['count']) {
-          observer.error(new Error('Failed to fetch slideshare posts: ' + url));
-          return;
+
+    return this.http.get(url).map(res => {
+      if (!res['query']['count']) {
+        throw new Error('Failed to fetch slideshare posts: ' + url);
+      }
+      const responses: Response[] = res['query']['results']['item'];
+
+      const items = responses.map((payload: Response) => {
+        const item = new Item(
+          payload.title,
+          new URL(payload.link),
+          payload.content.description.content,
+          new Date(payload.pubDate)
+        );
+
+        if (payload.content.thumbnail.length) {
+          // cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?hoge=fuga
+          item.linkToThumbnail = new URL('https://' + payload.content.thumbnail[0].url);
         }
-        const responses: Response[] = res['query']['results']['item'];
-
-        const items = responses.map((payload: Response) => {
-          const item = new Item(
-            payload.title,
-            new URL(payload.link),
-            payload.content.description.content,
-            new Date(payload.pubDate)
-          );
-
-          if (payload.content.thumbnail.length) {
-            // cdn.slidesharecdn.com/ss_thumbnails/glsl-171106154757-thumbnail-2.jpg?hoge=fuga
-            item.linkToThumbnail = new URL('https://' + payload.content.thumbnail[0].url);
-          }
-          return item;
-        });
-
-        observer.next(items);
+        return item;
       });
+
+      return items;
+    })
+    .catch((err, items) => {
+      // console.log(err);
+      return Observable.of([]);
     });
   }
 }

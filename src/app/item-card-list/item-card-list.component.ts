@@ -10,8 +10,12 @@ import { MediumService } from '../medium.service';
 import { HatenaService } from '../hatena.service';
 
 import { Observable } from 'rxjs/Observable';
-import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/expand';
+import 'rxjs/add/operator/concatMap';
 
 @Component({
   selector: 'app-item-card-list',
@@ -28,20 +32,27 @@ export class ItemCardListComponent implements OnChanges {
     public slideshare: SlideShareService
   ) {
     // ItemStoreの中で特定のpersonのものだけを保持する
-    itemStore.list.subscribe(storedItems => {
-      this.items = storedItems.filter(item => {
-        return item.personId === this.person.id;
-      });
+    this.itemStore.list.subscribe(storedItems => {
+      if (this.person) {
+        this.items = storedItems.filter(item => {
+          return item.personId === this.person.id;
+        });
+      }
     });
   }
 
   ngOnChanges() {
     // TODO: この処理を別のServiceに切り出す
-    Observable.merge(
+    const polling = Observable.merge(
       this.hatena.fetchItems(this.person.name),
       this.slideshare.fetchItems(this.person.name),
-      this.medium.fetchItems(this.person.name),
-    ).subscribe(fetchedItems => {
+      this.medium.fetchItems(this.person.name)
+    );
+
+    polling.expand(() => {
+      return Observable.timer(30000).concatMap(() => polling);
+    })
+    .subscribe((fetchedItems: Item[]) => {
       fetchedItems.forEach(fetchedItem => {
         this.itemStore.list.subscribe(storedItems => {
           const fetchedUrl = fetchedItem.linkToContent.toString();
