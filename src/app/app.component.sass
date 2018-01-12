@@ -1,11 +1,17 @@
 mat-toolbar-row
   width: 100%
-  mat-icon
+  display: flex
+  justify-content: flex-end
+  .title
     vertical-align: middle
-    display: inline-block
-    margin-left: 0.2em;
-  span
-    vertical-align: middle
+    mat-icon
+      vertical-align: middle
+      display: inline-block
+      margin-left: 0.2em
+  .link-to-github
+    margin-left: auto
+    a
+      color: #FF7C78
 
 .root-container
   padding: 1.5em  
