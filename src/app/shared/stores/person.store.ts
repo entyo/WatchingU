@@ -23,8 +23,7 @@ export class PersonStore {
   mockSetup() {
     [
       new Person('e_ntyo'),
-      new Person('r7kamura'),
-      new Person('hyuki')
+      new Person('akameco')
     ].forEach(p => this.insert(p));
   }
 
