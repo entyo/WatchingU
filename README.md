@@ -1,5 +1,9 @@
 # WatchingU
 
+RSS reader for internet otaku.
+
+![screenshot](https://i.imgur.com/I58yc0m.png)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
 ## Development server
