@@ -1,0 +1,25 @@
+{
+  "name": "watching-u",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "yarn build:watch & parcel index.html",
+    "build:watch": "pulp --psc-package -w build",
+    "build:prod": "pulp --psc-package build -O",
+    "test": "pulp --psc-package test",
+    "postinstall": "psc-package install"
+  },
+  "author": "e_ntyo",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.9.7",
+    "psc-package": "^0.3.2",
+    "purescript": "^0.12.0",
+    "pulp": "^12.3.0",
+    "yarn": "latest"
+  }
+}
