@@ -9,7 +9,7 @@
   "scripts": {
     "start": "yarn build:watch & parcel index.html",
     "build:watch": "pulp --psc-package -w build",
-    "build:prod": "pulp --psc-package build -O",
+    "build:prod": "pulp --psc-package build -O --to built.js && parcel build built.js",
     "test": "pulp --psc-package test",
     "postinstall": "psc-package install"
   },
