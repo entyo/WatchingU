@@ -1,10 +1,14 @@
 module Button where
 
+import CSS (background, px, width)
+import Color.Scheme.Clrs (red)
 import Data.Maybe (Maybe(..))
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.CSS as CSS
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties as HP
+
 import Prelude (Unit, bind, not, discard, pure, const, type (~>), ($))
 
 type State = Boolean
@@ -37,11 +41,18 @@ myButton =
     let
       label = if state then "On" else "Off"
     in
-      HH.button
-        [ HP.title label
+      HH.div [
+        CSS.style do
+          width (px 800.0)
+          background red
+      ]
+      [
+        HH.button [
+          HP.title label
         , HE.onClick (HE.input_ Toggle)
         ]
         [ HH.text label ]
+      ]
 
 --   eval :: Query ~> H.HalogenM State Query () Message m
   eval :: Query ~> H.ComponentDSL State Query Message m
