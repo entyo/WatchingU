@@ -1,6 +1,6 @@
 # WatchingU
 
-RSS reader for internet otaku.
+RSS reader for internet otaku. [Try it!](https://entyo.github.io/WatchingU/)
 
 ![screenshot](https://i.imgur.com/I58yc0m.png)
 
