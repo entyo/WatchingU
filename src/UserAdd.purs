@@ -19,6 +19,8 @@ data Query a
   | UpdateUserID String a
   | AddUserID a
 
+type Slot = H.Slot Query Message
+
 -- 入力されたユーザIDを、親コンポーネント(observer)に伝える
 -- つかいかた:
 -- https://github.com/slamdata/purescript-halogen/blob/v4.0.0/examples/lifecycle/src/Child.purs#L59
@@ -34,10 +36,12 @@ userAdd =
     , render
     , eval
     , receiver: const Nothing
+    , initializer: Nothing
+    , finalizer: Nothing
     }
   where
 
-  render :: State -> H.ComponentHTML Query
+  render :: State -> H.ComponentHTML Query () m
   render state =
       HH.div_
       [
@@ -55,7 +59,7 @@ userAdd =
       ]
 
   --   eval :: Query ~> H.HalogenM State Query () Message m
-  eval :: Query ~> H.ComponentDSL State Query Message m
+  eval :: Query ~> H.HalogenM State Query () Message m
   eval = case _ of
     GetUserID reply -> do
       _userID <- H.gets _.userID

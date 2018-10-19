@@ -2,29 +2,29 @@ module Container where
 
 import Prelude
 
+import Data.Array (snoc)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
+import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
-import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties as HP
+import UserAdd as CA
 import UserAdd as UA
 
-type State =
-  { a :: Maybe Boolean
-  , b :: Maybe Int
-  , c :: Maybe String
-  }
+type State = { userIDs :: Array String }
 
-data Query a = AddUserToList String a
+data Query a = ReadUserID String a
 
 type ChildSlots =
-  ( a :: CA.Slot Unit
-  , b :: CB.Slot Unit
-  , c :: CC.Slot Unit
+  ( 
+    -- specify slot input type(i.e. TaskId)
+    userAdd :: UA.Slot Unit
   )
 
-_ua = SProxy :: SProxy "UserAdd"
+_ua = SProxy :: SProxy "userAdd"
+
+initialState :: State
+initialState = { userIDs: [] }
 
 component :: forall m. Applicative m => H.Component HH.HTML Query Unit Void m
 component =
@@ -33,25 +33,32 @@ component =
     , render
     , eval
     , receiver: const Nothing
+    , initializer: Nothing
+    , finalizer: Nothing
     }
   where
 
-  initialState :: State
-  initialState = { a: Nothing, b: Nothing, c: Nothing }
-
   render :: State -> H.ComponentHTML Query ChildSlots m
   render state = HH.div_
-    [ HH.slot _ua _ua UA.userAdd unit listen ]
+    [ HH.slot _ua unit UA.userAdd unit listen ]
 
   eval :: Query ~> H.HalogenM State Query ChildSlots Void m
-  eval (ReadStates next) = do
-    a <- H.query _a unit (H.request CA.GetState)
-    b <- H.query _b unit (H.request CB.GetCount)
-    c <- H.query _c unit (H.request CC.GetValue)
-    H.put { a, b, c }
-    pure next
+  eval (ReadUserID userID next) = do
+    _userID <- H.query _ua unit (H.request CA.GetUserID)
+    case _userID of
+      Nothing -> do
+        -- Nothing to do
+        pure next
+      Just uid -> do
+        uids <- H.gets _.userIDs
+        let userIDs = (uids `snoc` uid)
+        H.put { userIDs }
+        pure next
 
-    -- 子コンポーネントからのMessageを受け取り、なにかする
+  -- 子コンポーネントからのMessageを受け取り、なにかする
   listen :: UA.Message -> Maybe (Query Unit)
   listen = Just <<< case _ of
-    UA.AddedUserID id -> H.action $ AddUserToList id
+    UA.AddedUserID id -> H.action $ ReadUserID id
+
+addUserID :: String -> State -> State
+addUserID uid st = st { userIDs = st.userIDs `snoc` uid }
