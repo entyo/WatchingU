@@ -21,13 +21,13 @@ data Query a
 
 type Slot = H.Slot Query Message
 
+_userAdd = SProxy :: SProxy "userAdd"
+
 -- 入力されたユーザIDを、親コンポーネント(observer)に伝える
 -- つかいかた:
 -- https://github.com/slamdata/purescript-halogen/blob/v4.0.0/examples/lifecycle/src/Child.purs#L59
 -- https://github.com/slamdata/purescript-halogen/blob/v4.0.0/examples/lifecycle/src/Child.purs#L66
 data Message = AddedUserID String
-
-_user = SProxy :: SProxy "user"
 
 userAdd :: forall m. H.Component HH.HTML Query Unit Message m
 userAdd =

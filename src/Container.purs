@@ -4,12 +4,10 @@ import Prelude
 
 import Data.Array (snoc)
 import Data.Maybe (Maybe(..))
-import Data.Symbol (SProxy(..))
-import Effect.Class.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
-import UserAdd as CA
 import UserAdd as UA
+import UserList as UL
 
 type State = { userIDs :: Array String }
 
@@ -17,17 +15,16 @@ data Query a = ReadUserID String a
 
 type ChildSlots =
   ( 
-    -- specify slot input type(i.e. TaskId)
-    userAdd :: UA.Slot Unit
+    -- specify slot input type(i.e. UserId)
+    userAdd  :: UA.Slot Unit,
+    userList :: UL.Slot Unit
   )
-
-_ua = SProxy :: SProxy "userAdd"
 
 initialState :: State
 initialState = { userIDs: [] }
 
-component :: forall m. Applicative m => H.Component HH.HTML Query Unit Void m
-component =
+container :: forall m. Applicative m => H.Component HH.HTML Query Unit Void m
+container =
   H.component
     { initialState: const initialState
     , render
@@ -40,11 +37,14 @@ component =
 
   render :: State -> H.ComponentHTML Query ChildSlots m
   render state = HH.div_
-    [ HH.slot _ua unit UA.userAdd unit listen ]
+    [ 
+      HH.slot UA._userAdd unit UA.userAdd unit listen,
+      HH.slot UL._list unit UL.list unit absurd
+    ]
 
   eval :: Query ~> H.HalogenM State Query ChildSlots Void m
   eval (ReadUserID userID next) = do
-    _userID <- H.query _ua unit (H.request CA.GetUserID)
+    _userID <- H.query UA._userAdd unit (H.request UA.GetUserID)
     case _userID of
       Nothing -> do
         -- Nothing to do
