@@ -6,6 +6,7 @@ import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.Events as HE
 
 -- | The task component query algebra.
 data UserQuery a = Remove a
@@ -32,7 +33,9 @@ user initialState =
 
   render :: String -> H.ComponentHTML UserQuery () m
   render state =
-    HH.li_ [ HH.text state ]
+    HH.li_ [ HH.text state
+           , HH.button [ HE.onClick (HE.input_ Remove) ]
+           [ HH.text "削除" ] ]
 
   -- queryをevalしてHalogenMにする
   eval :: UserQuery ~> H.HalogenM String UserQuery () UserMessage m

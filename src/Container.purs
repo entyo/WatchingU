@@ -4,6 +4,9 @@ import Prelude
 
 import Data.Array (snoc)
 import Data.Maybe (Maybe(..))
+import Effect.Aff (Aff)
+import Effect.Console (log)
+import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import UserAdd as UA
@@ -21,9 +24,9 @@ type ChildSlots =
   )
 
 initialState :: State
-initialState = { userIDs: [] }
+initialState = { userIDs: ["user1", "user2", "user3"] }
 
-container :: forall m. Applicative m => H.Component HH.HTML Query Unit Void m
+container :: H.Component HH.HTML Query Unit Void Aff
 container =
   H.component
     { initialState: const initialState
@@ -35,14 +38,14 @@ container =
     }
   where
 
-  render :: State -> H.ComponentHTML Query ChildSlots m
+  render :: State -> H.ComponentHTML Query ChildSlots Aff
   render state = HH.div_
     [ 
       HH.slot UA._userAdd unit UA.userAdd unit listen,
-      HH.slot UL._list unit UL.list unit absurd
+      HH.slot UL._list unit UL.list state.userIDs absurd
     ]
 
-  eval :: Query ~> H.HalogenM State Query ChildSlots Void m
+  eval :: Query ~> H.HalogenM State Query ChildSlots Void Aff
   eval (ReadUserID userID next) = do
     _userID <- H.query UA._userAdd unit (H.request UA.GetUserID)
     case _userID of
@@ -52,6 +55,8 @@ container =
       Just uid -> do
         uids <- H.gets _.userIDs
         let userIDs = (uids `snoc` uid)
+        liftEffect $ (log $ "uid: " <> uid)
+        liftEffect $ (log $ "uids: " <>  show userIDs)
         H.put { userIDs }
         pure next
 
@@ -61,4 +66,6 @@ container =
     UA.AddedUserID id -> H.action $ ReadUserID id
 
 addUserID :: String -> State -> State
-addUserID uid st = st { userIDs = st.userIDs `snoc` uid }
+-- TODO: Do not add uid if it already exists
+addUserID uid st = do
+  st { userIDs = st.userIDs `snoc` uid }
