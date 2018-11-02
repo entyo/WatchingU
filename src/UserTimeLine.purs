@@ -5,17 +5,15 @@ module UserTimeLine where
 import Affjax (get)
 import Affjax.ResponseFormat as ResponseFormat
 import Data.Either (Either(..))
-import Data.List.NonEmpty (NonEmptyList)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Effect.Aff (Aff)
-import Effect.Console (log)
-import Foreign (ForeignError)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
-import Prelude (type (~>), Unit, bind, const, discard, map, pure, ($), (<>))
-import Simple.JSON (readJSON)
+import Hatena as Hatena
+import Prelude (type (~>), Unit, bind, const, discard, map, pure, ($))
+import YQL as YQL
 
 -- | The task component query algebra.
 data UserQuery a = Remove a | Initialize a
@@ -28,35 +26,8 @@ type UserSlot = H.Slot UserQuery UserMessage
 
 _user = SProxy :: SProxy "user"
 
-type HatenaRSSResponse = {
-  description :: String,
-  link :: String,
-  pubDate :: String,
-  title :: String,
-  enclosure :: {
-    -- i.e.) "0", "1"
-    length :: String,
-    type :: String,
-    url :: String
-  }
-}
-
-type  YQLResponse = {
-  query :: {
-    count :: Int,
-    created :: String,
-    lang :: String,
-    results :: {
-      item :: Array HatenaRSSResponse
-    }
-  }
-}
-
-decode :: String -> Either (NonEmptyList ForeignError) YQLResponse
-decode = readJSON
-
 type State = {
-  res :: Maybe YQLResponse,
+  res :: Maybe (YQL.Response Hatena.Response),
   loading :: Boolean
 }
 
@@ -91,18 +62,16 @@ user username =
     pure next
   eval (Initialize next) = do
     H.modify_ (_ { loading = true })
-    let url = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url='http://" <> username <> ".hatenablog.com/rss'&format=json"
-    H.liftEffect $ log $ url
-    response <- H.liftAff $ get (ResponseFormat.string) url
+    response <- H.liftAff $ get (ResponseFormat.string) (Hatena.buildUrlByUserName username)
     case response.body of
       -- TODO: エラー処理をちゃんとやる
       -- Left err -> H.modify_ (_ { res = Just (printResponseFormatError err), loading = false })
       Left err -> H.modify_ (_ { res = Nothing, loading = false })
-      Right body -> case (decode body) of
+      Right body -> case (Hatena.decode body) of
         -- TODO: エラー処理をちゃんとやる
         Left _ -> H.modify_ (_ { res = Nothing, loading = false })
         Right b -> H.modify_ (_ { res = Just b, loading = false })
     pure next
 
-renderItem :: forall f m. HatenaRSSResponse -> H.ComponentHTML f () m
+renderItem :: forall f m. Hatena.Response -> H.ComponentHTML f () m
 renderItem response = HH.li_ [ HH.p_ [ HH.text response.title ] ]
