@@ -80,7 +80,7 @@ user username =
               case state.res of
                 Nothing -> []
                 Just res ->
-                  [ HH.ul_ (map (\item -> (HH.li_ [ HH.p_ [ HH.text item.title ] ])) res.query.results.item) ]
+                  [ HH.ul_ (map renderItem res.query.results.item) ]
            , HH.button [ HE.onClick (HE.input_ Remove) ]
            [ HH.text "削除" ] ]
 
@@ -103,3 +103,6 @@ user username =
         Left _ -> H.modify_ (_ { res = Nothing, loading = false })
         Right b -> H.modify_ (_ { res = Just b, loading = false })
     pure next
+
+renderItem :: forall f m. HatenaRSSResponse -> H.ComponentHTML f () m
+renderItem response = HH.li_ [ HH.p_ [ HH.text response.title ] ]
