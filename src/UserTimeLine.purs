@@ -4,6 +4,7 @@ module UserTimeLine where
 
 import Affjax (get)
 import Affjax.ResponseFormat as ResponseFormat
+import Control.Parallel (parTraverse)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
@@ -12,6 +13,7 @@ import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Hatena as Hatena
+import Medium as Medium
 import Prelude (type (~>), Unit, bind, const, discard, map, pure, ($))
 import YQL as YQL
 
@@ -27,7 +29,7 @@ type UserSlot = H.Slot UserQuery UserMessage
 _user = SProxy :: SProxy "user"
 
 type State = {
-  res :: Maybe (YQL.Response Hatena.Response),
+  res :: Maybe (YQL.Response Response),
   loading :: Boolean
 }
 
@@ -62,8 +64,10 @@ user username =
     pure next
   eval (Initialize next) = do
     H.modify_ (_ { loading = true })
-    response <- H.liftAff $ get (ResponseFormat.string) (Hatena.buildUrlByUserName username)
-    case response.body of
+    let urls = map (\f -> f username) [Hatena.buildUrlByUserName, Medium.buildUrlByUserName]
+    responses <- H.liftAff $ parTraverse (get ResponseFormat.string) urls
+    -- TODO: responsesのそれぞれのresponseについて、以下の処理をやる
+    case response of
       -- TODO: エラー処理をちゃんとやる
       -- Left err -> H.modify_ (_ { res = Just (printResponseFormatError err), loading = false })
       Left err -> H.modify_ (_ { res = Nothing, loading = false })
@@ -73,5 +77,8 @@ user username =
         Right b -> H.modify_ (_ { res = Just b, loading = false })
     pure next
 
-renderItem :: forall f m. Hatena.Response -> H.ComponentHTML f () m
-renderItem response = HH.li_ [ HH.p_ [ HH.text response.title ] ]
+data Response = Hatena Hatena.Response | Medium Medium.Response
+
+renderItem :: forall f m. Response -> H.ComponentHTML f () m
+renderItem (Hatena response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
+renderItem (Medium response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
