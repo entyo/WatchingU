@@ -14,7 +14,7 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Hatena as Hatena
 import Medium as Medium
-import Prelude (type (~>), Unit, bind, const, discard, map, otherwise, pure, ($))
+import Prelude (type (~>), Unit, bind, const, discard, map, otherwise, pure, show, ($))
 import YQL as YQL
 
 -- | The task component query algebra.
@@ -76,7 +76,15 @@ user username =
     H.modify_ (_ { loading = false })
     case (parseYQLResponses responses) of
       Left error -> H.liftEffect $ log $ error
-      Right parsed -> H.modify_ (_ { hatena = Just parsed.hatena, medium = Just parsed.medium })
+      Right parsed -> do
+        let hatena = parsed.hatena
+        case hatena of
+          Left errors -> H.liftEffect $ log $ show errors
+          Right body -> H.modify_ (_ { hatena = Just body })
+        let medium = parsed.medium
+        case medium of
+          Left errors -> H.liftEffect $ log $ show errors
+          Right body -> H.modify_ (_ { medium = Just body })
     pure next
 
 data Response = Hatena Hatena.Response | Medium Medium.Response
@@ -85,12 +93,17 @@ renderItem :: forall f m. Response -> H.ComponentHTML f () m
 renderItem (Hatena response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
 renderItem (Medium response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
 
-parseYQLResponses :: Array (AJ.Response (Either AJ.ResponseFormatError String)) -> Either String { hatena :: YQL.Response Hatena.Response, medium :: YQL.Response Medium.Response }
+type YQLResponse = AJ.Response (Either AJ.ResponseFormatError String)
+type Expected = { hatena :: Hatena.Decoded, medium :: Medium.Decoded }
+
+parseYQLResponses :: Array YQLResponse -> Either String Expected
 parseYQLResponses responses 
   | Just _hatena <- responses !! 0
   , Right hbody <- _hatena.body
-  , Right hatena <- Hatena.decode hbody
   , Just _medium <- responses !! 1
-  , Right mbody <- _medium.body
-  , Right medium <- Medium.decode mbody = Right { hatena, medium }
-  | otherwise = Left "Failed to parse YQL response"
+  , Right mbody <- _medium.body = do
+    let hatena = Hatena.decode hbody
+    let medium = Medium.decode mbody
+    Right { hatena, medium }
+  | otherwise = do
+    Left "Failed to parse YQL response"

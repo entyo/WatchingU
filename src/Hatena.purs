@@ -23,5 +23,7 @@ type Response = {
 buildUrlByUserName :: String -> String
 buildUrlByUserName username = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url='http://" <> username <> ".hatenablog.com/rss'&format=json"
 
-decode :: String -> Either (NonEmptyList ForeignError) (YQL.Response Response)
+type Decoded = Either (NonEmptyList ForeignError) (YQL.Response Response)
+
+decode :: String -> Decoded
 decode = readJSON
