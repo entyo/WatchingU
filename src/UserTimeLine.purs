@@ -1,7 +1,5 @@
 module UserTimeLine where
 
--- import Affjax.ResponseFormat
-
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
 import Control.Parallel (parTraverse)
@@ -75,10 +73,10 @@ user username =
     let urls = map (\f -> f username) [Hatena.buildUrlByUserName, Medium.buildUrlByUserName]
     -- TODO: MonadError でエラーハンドリング https://github.com/slamdata/purescript-aff#2-monaderror
     responses <- H.liftAff $ parTraverse (AJ.get ResponseFormat.string) urls
+    H.modify_ (_ { loading = false })
     case (parseYQLResponses responses) of
       Left error -> H.liftEffect $ log $ error
-      Right parsed -> H.modify_ (_ parsed)
-    H.modify_ (_ { loading = false })
+      Right parsed -> H.modify_ (_ { hatena = Just parsed.hatena, medium = Just parsed.medium })
     pure next
 
 data Response = Hatena Hatena.Response | Medium Medium.Response
@@ -90,13 +88,9 @@ renderItem (Medium response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
 parseYQLResponses :: Array (AJ.Response (Either AJ.ResponseFormatError String)) -> Either String { hatena :: YQL.Response Hatena.Response, medium :: YQL.Response Medium.Response }
 parseYQLResponses responses 
   | Just _hatena <- responses !! 0
-  -- Could not match type
-  -- Either t0
-  -- with type
-  --  Record
-  , Right body <- _hatena
-  , Right hatena <- Hatena.decode body
+  , Right hbody <- _hatena.body
+  , Right hatena <- Hatena.decode hbody
   , Just _medium <- responses !! 1
-  , Right body <- _medium
-  , Right medium <- Medium.decode = Right { hatena, medium }
+  , Right mbody <- _medium.body
+  , Right medium <- Medium.decode mbody = Right { hatena, medium }
   | otherwise = Left "Failed to parse YQL response"
