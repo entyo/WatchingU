@@ -14,8 +14,7 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Hatena as Hatena
 import Medium as Medium
-import Prelude (type (~>), Unit, bind, const, discard, map, otherwise, pure, show, ($))
-import YQL as YQL
+import Prelude (type (~>), Unit, bind, const, discard, map, otherwise, pure, show, ($), append)
 
 -- | The task component query algebra.
 data UserQuery a = Remove a | Initialize a
@@ -29,15 +28,14 @@ type UserSlot = H.Slot UserQuery UserMessage
 _user = SProxy :: SProxy "user"
 
 type State = {
-  hatena :: Maybe (YQL.Response Hatena.Response),
-  medium :: Maybe (YQL.Response Medium.Response),
+  items :: Maybe (Array TimeLineItem),
   loading :: Boolean
 }
 
 user :: String -> H.Component HH.HTML UserQuery Unit UserMessage Aff
 user username =
   H.component
-    { initialState: const { hatena: Nothing, medium: Nothing, loading: false }
+    { initialState: const { items: Nothing, loading: false }
     , render
     , eval
     , receiver: const Nothing
@@ -51,15 +49,10 @@ user username =
     HH.li_ [ HH.text username
            , HH.p_ [ HH.text (if state.loading then "Fetching..." else "") ]
            , HH.div_
-              case state.hatena of
+              case state.items of
                 Nothing -> []
-                Just res ->
-                  [ HH.ul_ (map renderItem (map (\x -> Hatena x) res.query.results.item)) ]
-           , HH.div_
-              case state.medium of
-                Nothing -> []
-                Just res ->
-                  [ HH.ul_ (map renderItem (map (\x -> Medium x) res.query.results.item)) ]
+                Just items ->
+                  [ HH.ul_ (map renderItem items) ]
            , HH.button [ HE.onClick (HE.input_ Remove) ]
            [ HH.text "削除" ] ]
 
@@ -80,18 +73,27 @@ user username =
         let hatena = parsed.hatena
         case hatena of
           Left errors -> H.liftEffect $ log $ show errors
-          Right body -> H.modify_ (_ { hatena = Just body })
+          Right body -> do
+            let items = map convertResponseToItem (map Hatena body.query.results.item)
+            H.modify_ (addItems items)
         let medium = parsed.medium
         case medium of
           Left errors -> H.liftEffect $ log $ show errors
-          Right body -> H.modify_ (_ { medium = Just body })
+          Right body -> do
+            let items = map convertResponseToItem (map Medium body.query.results.item)
+            H.modify_ (addItems items)
     pure next
+
+addItems :: (Array TimeLineItem) -> State -> State
+addItems items s = do
+  case s.items of
+    Nothing -> s { items = Just items }
+    Just oldItems -> s { items = Just (append oldItems items) }
 
 data Response = Hatena Hatena.Response | Medium Medium.Response
 
-renderItem :: forall f m. Response -> H.ComponentHTML f () m
-renderItem (Hatena response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
-renderItem (Medium response) = HH.li_ [ HH.p_ [ HH.text response.title ] ]
+renderItem :: forall f m. TimeLineItem -> H.ComponentHTML f () m
+renderItem item = HH.li_ [ HH.p_ [ HH.text item.title ] ]
 
 type YQLResponse = AJ.Response (Either AJ.ResponseFormatError String)
 type Expected = { hatena :: Hatena.Decoded, medium :: Medium.Decoded }
@@ -107,3 +109,29 @@ parseYQLResponses responses
     Right { hatena, medium }
   | otherwise = do
     Left "Failed to parse YQL response"
+
+type TimeLineItem = {
+  title :: String,
+  body :: Body,
+  url :: String,
+  updatedAt :: String,
+  thumbnailUrl :: Maybe String
+}
+
+data Body = Text String | HTML String
+
+convertResponseToItem :: Response -> TimeLineItem
+convertResponseToItem (Hatena response) = { 
+  title: response.title,
+  body: HTML response.description,
+  url: response.link,
+  updatedAt: response.pubDate,
+  thumbnailUrl: Just response.enclosure.url
+}
+convertResponseToItem (Medium response) = {
+  title: response.title,
+  body: HTML response.encoded,
+  url: response.link,
+  updatedAt: response.pubDate,
+  thumbnailUrl: Nothing
+}
