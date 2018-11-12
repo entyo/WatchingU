@@ -3,6 +3,7 @@
   "set": "halogen-master",
   "source": "https://github.com/entyo/package-sets.git",
   "depends": [
+    "js-date",
     "simple-json",
     "affjax",
     "halogen",

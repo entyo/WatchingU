@@ -3,10 +3,13 @@ module UserTimeLine where
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
 import Control.Parallel (parTraverse)
-import Data.Array ((!!))
+import Data.Array (sortBy, zip, (!!))
 import Data.Either (Either(..))
+import Data.JSDate (JSDate, parse)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
+import Data.Traversable (traverse)
+import Data.Tuple (fst, snd)
 import Effect.Aff (Aff)
 import Effect.Console (log)
 import Halogen as H
@@ -14,7 +17,7 @@ import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 import Hatena as Hatena
 import Medium as Medium
-import Prelude (type (~>), Unit, bind, const, discard, map, otherwise, pure, show, ($), append)
+import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($))
 
 -- | The task component query algebra.
 data UserQuery a = Remove a | Initialize a
@@ -28,7 +31,7 @@ type UserSlot = H.Slot UserQuery UserMessage
 _user = SProxy :: SProxy "user"
 
 type State = {
-  items :: Maybe (Array TimeLineItem),
+  items :: Maybe (Array TimeLineItem'),
   loading :: Boolean
 }
 
@@ -74,25 +77,36 @@ user username =
         case hatena of
           Left errors -> H.liftEffect $ log $ show errors
           Right body -> do
-            let items = map convertResponseToItem (map Hatena body.query.results.item)
-            H.modify_ (addItems items)
+            let response = map Hatena body.query.results.item
+            let items = map mapResponseToItem response
+            let times = map (\x -> x.updatedAt) items
+            times' <- H.liftEffect $ traverse parse times
+            let zipped = zip items times'
+            let items' = map (\x -> (fst x) { updatedAt = snd x }) zipped
+            H.modify_ (addItems items')
         let medium = parsed.medium
         case medium of
           Left errors -> H.liftEffect $ log $ show errors
           Right body -> do
-            let items = map convertResponseToItem (map Medium body.query.results.item)
-            H.modify_ (addItems items)
+            let response = map Medium body.query.results.item
+            let items = map mapResponseToItem response
+            let times = map (\x -> x.updatedAt) items
+            times' <- H.liftEffect $ traverse parse times
+            let zipped = zip items times'
+            let items' = map (\x -> (fst x) { updatedAt = snd x }) zipped
+            H.modify_ (addItems items')
     pure next
 
-addItems :: (Array TimeLineItem) -> State -> State
+addItems :: (Array TimeLineItem') -> State -> State
 addItems items s = do
   case s.items of
     Nothing -> s { items = Just items }
-    Just oldItems -> s { items = Just (append oldItems items) }
+    -- Sort by desc.
+    Just oldItems -> s { items = Just (sortBy (\a b -> b.updatedAt `compare` a.updatedAt)  (append oldItems items)) }
 
 data Response = Hatena Hatena.Response | Medium Medium.Response
 
-renderItem :: forall f m. TimeLineItem -> H.ComponentHTML f () m
+renderItem :: forall f m. TimeLineItem' -> H.ComponentHTML f () m
 renderItem item = HH.li_ [ HH.p_ [ HH.text item.title ] ]
 
 type YQLResponse = AJ.Response (Either AJ.ResponseFormatError String)
@@ -118,17 +132,25 @@ type TimeLineItem = {
   thumbnailUrl :: Maybe String
 }
 
+type TimeLineItem' = {
+  title :: String,
+  body :: Body,
+  url :: String,
+  updatedAt :: JSDate,
+  thumbnailUrl :: Maybe String
+}
+
 data Body = Text String | HTML String
 
-convertResponseToItem :: Response -> TimeLineItem
-convertResponseToItem (Hatena response) = { 
+mapResponseToItem :: Response -> TimeLineItem
+mapResponseToItem (Hatena response) = { 
   title: response.title,
   body: HTML response.description,
   url: response.link,
   updatedAt: response.pubDate,
   thumbnailUrl: Just response.enclosure.url
 }
-convertResponseToItem (Medium response) = {
+mapResponseToItem (Medium response) = {
   title: response.title,
   body: HTML response.encoded,
   url: response.link,
