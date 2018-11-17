@@ -15,6 +15,7 @@ import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
+import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
 import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($))
@@ -107,7 +108,10 @@ addItems items s = do
 data Response = Hatena Hatena.Response | Medium Medium.Response
 
 renderItem :: forall f m. TimeLineItem' -> H.ComponentHTML f () m
-renderItem item = HH.li_ [ HH.p_ [ HH.text item.title ] ]
+renderItem item
+  | Just tUrl <- item.thumbnailUrl = HH.li_ [ HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ] ], HH.img [ HP.src tUrl ] ] 
+  | otherwise = HH.li_ [ HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ] ] ]
+
 
 type YQLResponse = AJ.Response (Either AJ.ResponseFormatError String)
 type Expected = { hatena :: Hatena.Decoded, medium :: Medium.Decoded }
@@ -121,7 +125,7 @@ parseYQLResponses responses
     let hatena = Hatena.decode hbody
     let medium = Medium.decode mbody
     Right { hatena, medium }
-  | otherwise = do
+  | otherwise =
     Left "Failed to parse YQL response"
 
 type TimeLineItem = {
