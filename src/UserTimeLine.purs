@@ -19,6 +19,7 @@ import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
 import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($))
+import Qiita as Qiita
 
 -- | The task component query algebra.
 data UserQuery a = Remove a | Initialize a
@@ -60,18 +61,22 @@ user username =
            , HH.button [ HE.onClick (HE.input_ Remove) ]
            [ HH.text "削除" ] ]
 
+  getUserPosts url =
+    AJ.get ResponseFormat.string url 
+
   -- queryをevalしてHalogenMにする
   eval :: UserQuery ~> H.HalogenM State UserQuery () UserMessage Aff
   eval (Remove next) = do
     H.raise Removed
     pure next
+  -- TODO: リファクタリング
   eval (Initialize next) = do
     H.modify_ (_ { loading = true })
     let urls = map (\f -> f username) [Hatena.buildUrlByUserName, Medium.buildUrlByUserName]
     -- TODO: MonadError でエラーハンドリング https://github.com/slamdata/purescript-aff#2-monaderror
-    responses <- H.liftAff $ parTraverse (AJ.get ResponseFormat.string) urls
-    H.modify_ (_ { loading = false })
-    case (parseYQLResponses responses) of
+    responseYQLs <- H.liftAff $ parTraverse getUserPosts urls
+    responseQiita <- H.liftAff $ getUserPosts (Qiita.buildUrlByUserName username)
+    case (parseYQLResponses responseYQLs) of
       Left error -> H.liftEffect $ log $ error
       Right parsed -> do
         let hatena = parsed.hatena
@@ -96,6 +101,21 @@ user username =
             let zipped = zip items times'
             let items' = map (\x -> (fst x) { updatedAt = snd x }) zipped
             H.modify_ (addItems items')
+    case responseQiita.body of
+      -- TODO: ちゃんとerrorの内容をstringifyする
+      Left error -> H.liftEffect $ log $ "Failed to fetch data from Qiita API v2"
+      Right bodyInString -> do
+        case (Qiita.decode bodyInString) of
+          Left error -> H.liftEffect $ log $ show error
+          Right decoded -> do
+            let decoded' = map Qiita decoded
+            let items = map mapResponseToItem decoded'
+            let times = map (\x -> x.updated_at) (decoded)
+            times' <- H.liftEffect $ traverse parse times
+            let zipped = zip items times'
+            let items' = map (\x -> (fst x) { updatedAt = snd x }) zipped
+            H.modify_ (addItems items')
+    H.modify_ (_ { loading = false })
     pure next
 
 addItems :: (Array TimeLineItem') -> State -> State
@@ -105,7 +125,7 @@ addItems items s = do
     -- Sort by desc.
     Just oldItems -> s { items = Just (sortBy (\a b -> b.updatedAt `compare` a.updatedAt)  (append oldItems items)) }
 
-data Response = Hatena Hatena.Response | Medium Medium.Response
+data Response = Hatena Hatena.Response | Medium Medium.Response | Qiita Qiita.Response
 
 renderItem :: forall f m. TimeLineItem' -> H.ComponentHTML f () m
 renderItem item
@@ -159,5 +179,12 @@ mapResponseToItem (Medium response) = {
   body: HTML response.encoded,
   url: response.link,
   updatedAt: response.pubDate,
+  thumbnailUrl: Nothing
+}
+mapResponseToItem (Qiita response) = {
+  title: response.title,
+  body: HTML response.rendered_body,
+  url: response.url,
+  updatedAt: response.updated_at,
   thumbnailUrl: Nothing
 }
