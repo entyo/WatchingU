@@ -2,7 +2,7 @@ module UserList where
 
 import Prelude
 
-import CSS (em, padding)
+import CSS (em, height, margin, marginBottom, marginTop, padding, pct, px)
 import CSS.Flexbox (flexGrow)
 import Data.Array (filter, snoc)
 import Data.Maybe (Maybe(..))
@@ -56,8 +56,15 @@ list =
                flexGrow 1
                padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
             ]
-      [ HH.h2 [ classes [ (H.ClassName "title"), (H.ClassName "is-3") ] ] [ HH.text "ユーザ一覧" ]
-      , HH.div [class_ (H.ClassName "columns")] (map renderUser st)
+            [ HH.div_ [
+                HH.div [
+                  class_ (H.ClassName "columns"),
+                  HC.style do
+                    margin (px 0.0) (px 0.0) (px 0.0) (px 0.0)
+                    height $ pct $ 90.0
+                ]
+                (map renderUser st)
+            ]
       ]
 
   renderUser :: String -> H.ComponentHTML Query ChildSlots Aff

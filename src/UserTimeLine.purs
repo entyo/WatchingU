@@ -2,10 +2,13 @@ module UserTimeLine where
 
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
-import CSS (block, display, displayNone)
+import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGrow, flexShrink, height, margin, marginBottom, marginLeft, marginTop, padding, pct, px, width)
+import CSS.Common (auto)
+import CSS.Overflow (overflowY, scroll)
 import Control.Parallel (parTraverse)
 import Data.Array (sortBy, zip, (!!))
 import Data.Either (Either(..))
+import Data.Int (toNumber)
 import Data.JSDate (JSDate, parse, toDateString)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
@@ -54,17 +57,43 @@ user username =
 
   render :: State -> H.ComponentHTML UserQuery () Aff
   render state =
-    HH.div_ [ HH.p [ classes [ H.ClassName "subtitle", H.ClassName "is-4"] ] [ HH.text username ]
-            -- if state.loading then "" else ""
-            , HH.p [ HC.style (display if state.loading then block else displayNone) ]
-                   [ HH.text "読み込み中…" ]  
-            , HH.div_
-              case state.items of
-                Nothing -> []
-                Just items ->
-                  [ HH.div_ (map renderItem items) ]
-            , HH.button [ HE.onClick (HE.input_ Remove), class_ (H.ClassName "button") ]
-                        [ HH.text "削除" ] ]
+    HH.div [ HC.style do
+               display flex
+               flexDirection column
+               height $ pct $ toNumber 100 
+           ] [ HH.p [ classes [ H.ClassName "subtitle", H.ClassName "is-4"],
+                      HC.style do
+                        height $ px $ toNumber 30
+                        marginTop $ px $ toNumber 0
+                        marginBottom $ px $ toNumber 0
+                    ] 
+                    [ HH.text username ]
+               , HH.p [ HC.style (display if state.loading then block else displayNone) ] [ HH.text "読み込み中…" ]
+               , HH.div [ HC.style do
+                            flexGrow 1
+                            flexShrink 1
+                            padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+                            overflowY scroll
+                        ]
+                  case state.items of
+                    Nothing -> []
+                    Just items ->
+                      [ HH.div_ (map renderItem items) ]
+                , HH.div [ HC.style $ height $ px $ toNumber 50 ] 
+                         [ HH.div [ HC.style do
+                                      width $ pct $ toNumber 100
+                                      marginTop $ em 0.5
+                                      display flex
+                                  ]
+                                  [
+                                    HH.button [ HE.onClick (HE.input_ Remove),
+                                                class_ (H.ClassName "button"),
+                                                HC.style $ marginLeft auto       
+                                              ]
+                                              [ HH.text "削除" ] 
+                                  ]          
+                         ]
+             ]
 
   getUserPosts url =
     AJ.get ResponseFormat.string url 
@@ -155,7 +184,7 @@ renderItem item
           ]
       ]
   | otherwise = 
-    HH.div [ class_ (H.ClassName "card") ]
+    HH.div [ class_ (H.ClassName "card"), HC.style $ marginBottom $ em 0.5 ]
       [ 
         HH.div [ class_ (H.ClassName "card-content") ]
           [ HH.p [ classes [ (H.ClassName "title"), (H.ClassName "is-5") ] ] 

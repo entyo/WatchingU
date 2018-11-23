@@ -2,7 +2,7 @@ module UserAdd where
 
 import Prelude
 
-import CSS (em, height, padding, px)
+import CSS (display, em, flex, flexGrow, height, marginLeft, padding, px, width)
 import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
@@ -48,25 +48,32 @@ userAdd =
   render :: State -> H.ComponentHTML Query () m
   render state =
       HH.div [ HC.style do
-                 height $ px $ toNumber 100
+                 height $ px $ toNumber 40
                  padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
              ]
       [
-        -- TODO: ボタンを消して、<input>内でEnterできるようにする
-        HH.input
-          [
-            HP.type_ HP.InputText,
-            HP.placeholder "@e_ntyo",
-            HE.onValueChange (HE.input UpdateUserID),
-            class_ (H.ClassName "input")
-          ]
-      ,
-        HH.button
-          [ 
-            HE.onClick (HE.input_ AddUserID),
-            class_ (H.ClassName "button")
-          ]
-          [ HH.text "追加" ]
+        HH.div [ HC.style $ display flex ] 
+               [
+                  -- TODO: ボタンを消して、<input>内でEnterできるようにする
+                  HH.input
+                    [
+                      HP.type_ HP.InputText,
+                      HP.placeholder "@e_ntyo",
+                      HE.onValueChange (HE.input UpdateUserID),
+                      class_ (H.ClassName "input"),
+                      HC.style $ flexGrow 1
+                    ]
+                  ,
+                  HH.button
+                    [ 
+                      HE.onClick (HE.input_ AddUserID),
+                      class_ (H.ClassName "button"),
+                      HC.style do
+                        width $ px $ toNumber 100
+                        marginLeft $ em 0.5
+                    ]
+                    [ HH.text "追加" ]
+                ]
       ]
 
   --   eval :: Query ~> H.HalogenM State Query () Message m
