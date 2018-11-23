@@ -1,3 +1,5 @@
+import "./style.scss"
+
 function main() {
   require("./output/Main").main();
 }

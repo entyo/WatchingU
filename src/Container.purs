@@ -24,7 +24,7 @@ type ChildSlots =
   )
 
 initialState :: State
-initialState = { userIDs: ["e-ntyo", "potato4d", "akameco"] }
+initialState = { userIDs: [] }
 
 container :: H.Component HH.HTML Query Unit Void Aff
 container =

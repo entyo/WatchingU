@@ -11,6 +11,7 @@ import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
+import Halogen.HTML.Properties (class_)
 import UserTimeLine as UT
 
 data Query a
@@ -18,6 +19,8 @@ data Query a
   -- Handle messages from user component
   | HandleUserMessage String UT.UserMessage a
   | HandleInput Input a
+
+-- TODO: バグ！Messageを使ってContainerのStateで管理しているidリストからidを削除するようにする
 
 type ChildSlots = ( user :: UT.UserSlot String )
 
@@ -27,8 +30,6 @@ type Input = Array String
 
 type Slot = H.Slot Query Void
 
--- initialS :: State
--- initialS = []
 
 _list = SProxy :: SProxy "userList"
 
@@ -50,17 +51,19 @@ list =
   render st =
     HH.div_
       [ HH.h2_ [ HH.text "ユーザ一覧" ]
-        --   [ HH.li_ [ HH.text st ] ]
-      , HH.ul_ (map renderUser st)
+      , HH.div [class_ (H.ClassName "columns")] (map renderUser st)
       ]
 
   renderUser :: String -> H.ComponentHTML Query ChildSlots Aff
   renderUser id =
-    HH.slot UT._user id
-      -- pass userID
-      (UT.user id)
-      unit
-      (HE.input (HandleUserMessage id))
+    HH.div
+      [ class_ (H.ClassName "column") ]
+      [ HH.slot UT._user id
+        -- pass userID
+        (UT.user id)
+        unit
+        (HE.input (HandleUserMessage id))
+      ]
 
   eval :: Query ~> H.HalogenM State Query ChildSlots Void Aff
   eval (AddUser id next) = do

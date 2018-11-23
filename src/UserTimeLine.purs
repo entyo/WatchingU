@@ -5,7 +5,7 @@ import Affjax.ResponseFormat as ResponseFormat
 import Control.Parallel (parTraverse)
 import Data.Array (sortBy, zip, (!!))
 import Data.Either (Either(..))
-import Data.JSDate (JSDate, parse)
+import Data.JSDate (JSDate, parse, toDateString)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Data.Traversable (traverse)
@@ -15,6 +15,7 @@ import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
+import Halogen.HTML.Properties (class_)
 import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
@@ -51,15 +52,15 @@ user username =
 
   render :: State -> H.ComponentHTML UserQuery () Aff
   render state =
-    HH.li_ [ HH.text username
-           , HH.p_ [ HH.text (if state.loading then "Fetching..." else "") ]
-           , HH.div_
+    HH.div_ [ HH.text username
+            , HH.p_ [ HH.text (if state.loading then   "Fetching..." else "") ]
+            , HH.div_
               case state.items of
                 Nothing -> []
                 Just items ->
-                  [ HH.ul_ (map renderItem items) ]
-           , HH.button [ HE.onClick (HE.input_ Remove) ]
-           [ HH.text "削除" ] ]
+                  [ HH.div_ (map renderItem items) ]
+            , HH.button [ HE.onClick (HE.input_ Remove) ]
+                        [ HH.text "削除" ] ]
 
   getUserPosts url =
     AJ.get ResponseFormat.string url 
@@ -129,8 +130,42 @@ data Response = Hatena Hatena.Response | Medium Medium.Response | Qiita Qiita.Re
 
 renderItem :: forall f m. TimeLineItem' -> H.ComponentHTML f () m
 renderItem item
-  | Just tUrl <- item.thumbnailUrl = HH.li_ [ HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ] ], HH.img [ HP.src tUrl ] ] 
-  | otherwise = HH.li_ [ HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ] ] ]
+-- HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ]
+  | Just tUrl <- item.thumbnailUrl = 
+    HH.div [ class_ (H.ClassName "card") ]
+      [ HH.div [class_ (H.ClassName "card-image")]
+        [ HH.figure [class_ (H.ClassName "image")]
+          [ HH.img [ HP.src tUrl ] ] 
+        ]
+        , HH.div [ class_ (H.ClassName "card-content") ]
+          [ HH.p [ class_ (H.ClassName "title") ] 
+            [ HH.text item.title ]
+            , HH.p [ class_ (H.ClassName "subtitle") ]
+              [ HH.text (toDateString item.updatedAt) ] 
+          ]
+        , HH.footer [ class_ (H.ClassName "card-footer") ]
+          [ HH.p [ class_ (H.ClassName "card-footer-item") ]
+            [ HH.a [ HP.href item.url ] 
+              [ HH.text "見に行く" ]
+            ]
+          ]
+      ]
+  | otherwise = 
+    HH.div [ class_ (H.ClassName "card") ]
+      [ 
+        HH.div [ class_ (H.ClassName "card-content") ]
+          [ HH.p [ class_ (H.ClassName "title") ] 
+            [ HH.text item.title ]
+            , HH.p [ class_ (H.ClassName "subtitle") ]
+              [ HH.text (toDateString item.updatedAt) ] 
+          ]
+        , HH.footer [ class_ (H.ClassName "card-footer") ]
+          [ HH.p [ class_ (H.ClassName "card-footer-item") ]
+            [ HH.a [ HP.href item.url ] 
+              [ HH.text "見に行く" ]
+            ]
+          ]
+      ]
 
 
 type YQLResponse = AJ.Response (Either AJ.ResponseFormatError String)
