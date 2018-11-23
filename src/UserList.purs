@@ -11,7 +11,7 @@ import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties (class_)
+import Halogen.HTML.Properties (class_, classes)
 import UserTimeLine as UT
 
 data Query a
@@ -50,7 +50,7 @@ list =
   render :: State -> H.ComponentHTML Query ChildSlots Aff
   render st =
     HH.div_
-      [ HH.h2_ [ HH.text "ユーザ一覧" ]
+      [ HH.h2 [ classes [ (H.ClassName "title"), (H.ClassName "is-3") ] ] [ HH.text "ユーザ一覧" ]
       , HH.div [class_ (H.ClassName "columns")] (map renderUser st)
       ]
 

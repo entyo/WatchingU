@@ -15,7 +15,7 @@ import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties (class_)
+import Halogen.HTML.Properties (class_, classes)
 import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
@@ -52,14 +52,14 @@ user username =
 
   render :: State -> H.ComponentHTML UserQuery () Aff
   render state =
-    HH.div_ [ HH.text username
+    HH.div_ [ HH.p [ classes [ H.ClassName "subtitle", H.ClassName "is-4"] ] [ HH.text username ]
             , HH.p_ [ HH.text (if state.loading then   "Fetching..." else "") ]
             , HH.div_
               case state.items of
                 Nothing -> []
                 Just items ->
                   [ HH.div_ (map renderItem items) ]
-            , HH.button [ HE.onClick (HE.input_ Remove) ]
+            , HH.button [ HE.onClick (HE.input_ Remove), class_ (H.ClassName "button") ]
                         [ HH.text "削除" ] ]
 
   getUserPosts url =
@@ -138,7 +138,7 @@ renderItem item
           [ HH.img [ HP.src tUrl ] ] 
         ]
         , HH.div [ class_ (H.ClassName "card-content") ]
-          [ HH.p [ class_ (H.ClassName "title") ] 
+          [ HH.p [ classes [ (H.ClassName "title"), (H.ClassName "is-5") ] ] 
             [ HH.text item.title ]
             , HH.p [ class_ (H.ClassName "subtitle") ]
               [ HH.text (toDateString item.updatedAt) ] 
@@ -154,7 +154,7 @@ renderItem item
     HH.div [ class_ (H.ClassName "card") ]
       [ 
         HH.div [ class_ (H.ClassName "card-content") ]
-          [ HH.p [ class_ (H.ClassName "title") ] 
+          [ HH.p [ classes [ (H.ClassName "title"), (H.ClassName "is-5") ] ] 
             [ HH.text item.title ]
             , HH.p [ class_ (H.ClassName "subtitle") ]
               [ HH.text (toDateString item.updatedAt) ] 

@@ -7,6 +7,7 @@ import Data.Symbol (SProxy(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
+import Halogen.HTML.Properties (class_)
 import Halogen.HTML.Properties as HP
 
 type State = { userID :: Maybe String }
@@ -50,11 +51,15 @@ userAdd =
           [
             HP.type_ HP.InputText,
             HP.placeholder "@e_ntyo",
-            HE.onValueChange (HE.input UpdateUserID)
+            HE.onValueChange (HE.input UpdateUserID),
+            class_ (H.ClassName "input")
           ]
       ,
         HH.button
-          [ HE.onClick (HE.input_ AddUserID) ]
+          [ 
+            HE.onClick (HE.input_ AddUserID),
+            class_ (H.ClassName "button")
+          ]
           [ HH.text "追加" ]
       ]
 
