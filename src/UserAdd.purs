@@ -2,10 +2,13 @@ module UserAdd where
 
 import Prelude
 
+import CSS (em, height, padding, px)
+import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties (class_)
 import Halogen.HTML.Properties as HP
@@ -44,7 +47,10 @@ userAdd =
 
   render :: State -> H.ComponentHTML Query () m
   render state =
-      HH.div_
+      HH.div [ HC.style do
+                 height $ px $ toNumber 100
+                 padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+             ]
       [
         -- TODO: ボタンを消して、<input>内でEnterできるようにする
         HH.input

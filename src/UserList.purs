@@ -2,6 +2,8 @@ module UserList where
 
 import Prelude
 
+import CSS (em, padding)
+import CSS.Flexbox (flexGrow)
 import Data.Array (filter, snoc)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
@@ -10,6 +12,7 @@ import Effect.Console (log)
 import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties (class_, classes)
 import UserTimeLine as UT
@@ -49,7 +52,10 @@ list =
 
   render :: State -> H.ComponentHTML Query ChildSlots Aff
   render st =
-    HH.div_
+    HH.div [ HC.style do
+               flexGrow 1
+               padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+            ]
       [ HH.h2 [ classes [ (H.ClassName "title"), (H.ClassName "is-3") ] ] [ HH.text "ユーザ一覧" ]
       , HH.div [class_ (H.ClassName "columns")] (map renderUser st)
       ]

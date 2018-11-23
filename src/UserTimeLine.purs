@@ -2,6 +2,7 @@ module UserTimeLine where
 
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
+import CSS (block, display, displayNone)
 import Control.Parallel (parTraverse)
 import Data.Array (sortBy, zip, (!!))
 import Data.Either (Either(..))
@@ -14,6 +15,7 @@ import Effect.Aff (Aff)
 import Effect.Console (log)
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
 import Halogen.HTML.Properties (class_, classes)
 import Halogen.HTML.Properties as HP
@@ -53,7 +55,9 @@ user username =
   render :: State -> H.ComponentHTML UserQuery () Aff
   render state =
     HH.div_ [ HH.p [ classes [ H.ClassName "subtitle", H.ClassName "is-4"] ] [ HH.text username ]
-            , HH.p_ [ HH.text (if state.loading then   "Fetching..." else "") ]
+            -- if state.loading then "" else ""
+            , HH.p [ HC.style (display if state.loading then block else displayNone) ]
+                   [ HH.text "読み込み中…" ]  
             , HH.div_
               case state.items of
                 Nothing -> []

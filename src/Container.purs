@@ -2,13 +2,16 @@ module Container where
 
 import Prelude
 
+import CSS (column, display, flex, flexDirection, height, vh)
 import Data.Array (snoc)
+import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Console (log)
 import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
+import Halogen.HTML.CSS as HC
 import UserAdd as UA
 import UserList as UL
 
@@ -39,7 +42,11 @@ container =
   where
 
   render :: State -> H.ComponentHTML Query ChildSlots Aff
-  render state = HH.div_
+  render state = HH.div [ HC.style do
+                            display flex
+                            flexDirection column
+                            height $ vh $ toNumber 100
+                        ]
     [ 
       HH.slot UA._userAdd unit UA.userAdd unit listen,
       HH.slot UL._list unit UL.list state.userIDs absurd
