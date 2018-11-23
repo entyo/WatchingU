@@ -2,7 +2,7 @@ module UserList where
 
 import Prelude
 
-import CSS (em, height, margin, marginBottom, marginTop, padding, pct, px)
+import CSS (em, height, margin, padding, pct, px)
 import CSS.Flexbox (flexGrow)
 import Data.Array (filter, snoc)
 import Data.Maybe (Maybe(..))
@@ -14,7 +14,7 @@ import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties (class_, classes)
+import Halogen.HTML.Properties (class_)
 import UserTimeLine as UT
 
 data Query a
@@ -22,8 +22,7 @@ data Query a
   -- Handle messages from user component
   | HandleUserMessage String UT.UserMessage a
   | HandleInput Input a
-
--- TODO: バグ！Messageを使ってContainerのStateで管理しているidリストからidを削除するようにする
+  | GetUserIDs ((Array String) -> a)
 
 type ChildSlots = ( user :: UT.UserSlot String )
 
@@ -95,6 +94,9 @@ list =
     liftEffect $ (log $ "oldList: " <> show oldList)
     liftEffect $ (log $ "newList: " <> show newList)
     pure next
+  eval (GetUserIDs reply) = do
+    ids  <- H.get
+    pure (reply ids)
 
 -- | Adds a task to the current state.
 addUserID :: String -> State -> State

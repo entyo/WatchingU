@@ -60,12 +60,15 @@ container =
         -- Nothing to do
         pure next
       Just uid -> do
-        uids <- H.gets _.userIDs
-        let userIDs = (uids `snoc` uid)
-        liftEffect $ (log $ "uid: " <> uid)
-        liftEffect $ (log $ "uids: " <>  show userIDs)
-        H.put { userIDs }
-        pure next
+        uids <- H.query UL._list unit (H.request UL.GetUserIDs)
+        case uids of
+          Nothing -> pure next
+          Just ids -> do
+            let userIDs = (ids `snoc` uid)
+            liftEffect $ (log $ "uid: " <> uid)
+            liftEffect $ (log $ "uids: " <>  show userIDs)
+            H.put { userIDs }
+            pure next
 
   -- 子コンポーネントからのMessageを受け取り、なにかする
   listen :: UA.Message -> Maybe (Query Unit)
