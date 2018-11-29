@@ -2,7 +2,7 @@ module UserTimeLine where
 
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
-import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGrow, flexShrink, height, margin, marginBottom, marginLeft, marginTop, padding, pct, px, width)
+import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGrow, flexShrink, height, marginBottom, marginLeft, marginTop, padding, pct, px, width)
 import CSS.Common (auto)
 import CSS.Overflow (overflowY, scroll)
 import Control.Parallel (parTraverse)
@@ -24,7 +24,7 @@ import Halogen.HTML.Properties (class_, classes)
 import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
-import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($))
+import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($), (<$>))
 import Qiita as Qiita
 
 -- | The task component query algebra.
@@ -106,7 +106,7 @@ user username =
   -- TODO: リファクタリング
   eval (Initialize next) = do
     H.modify_ (_ { loading = true })
-    let urls = map (\f -> f username) [Hatena.buildUrlByUserName, Medium.buildUrlByUserName]
+    let urls = (\f -> f username) <$> [Hatena.buildUrlByUserName, Medium.buildUrlByUserName]
     -- TODO: MonadError でエラーハンドリング https://github.com/slamdata/purescript-aff#2-monaderror
     responseYQLs <- H.liftAff $ parTraverse getUserPosts urls
     responseQiita <- H.liftAff $ getUserPosts (Qiita.buildUrlByUserName username)
