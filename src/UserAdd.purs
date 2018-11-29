@@ -33,6 +33,10 @@ _userAdd = SProxy :: SProxy "userAdd"
 -- https://github.com/slamdata/purescript-halogen/blob/v4.0.0/examples/lifecycle/src/Child.purs#L66
 data Message = AddedUserID String
 
+isValid :: Maybe String -> Boolean
+isValid (Just name) = name /= ""
+isValid Nothing = false
+
 userAdd :: forall m. H.Component HH.HTML Query Unit Message m
 userAdd =
   H.component
@@ -66,6 +70,7 @@ userAdd =
                   ,
                   HH.button
                     [ 
+                      HP.disabled (not isValid state.userID),
                       HE.onClick (HE.input_ AddUserID),
                       class_ (H.ClassName "button"),
                       HC.style do
