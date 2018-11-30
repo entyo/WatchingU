@@ -53,7 +53,7 @@ list =
   render st =
     HH.div [ HC.style do
                flexGrow 1
-               padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+               padding (em 1.2) (em 1.2) (em 1.2) (em 1.2)
             ]
             [ HH.div_ [
                 HH.div [

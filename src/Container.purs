@@ -2,22 +2,29 @@ module Container where
 
 import Prelude
 
-import CSS (column, display, flex, flexDirection, height, vh)
+import CSS (color, column, display, em, flex, flexDirection, height, padding, vh, whitesmoke)
 import Data.Array (snoc)
 import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
+import Data.Symbol (SProxy(..))
 import Effect.Aff (Aff)
 import Effect.Console (log)
 import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
+import Halogen.HTML.Properties (class_, classes)
+import Halogen.HTML.Properties.ARIA (role)
 import UserAdd as UA
 import UserList as UL
 
 type State = { userIDs :: Array String }
 
 data Query a = ReadUserID String a
+
+type Slot = H.Slot Query Void
+
+_container = SProxy :: SProxy "container"
 
 type ChildSlots =
   ( 
@@ -42,15 +49,43 @@ container =
   where
 
   render :: State -> H.ComponentHTML Query ChildSlots Aff
-  render state = HH.div [ HC.style do
-                            display flex
-                            flexDirection column
-                            height $ vh $ toNumber 100
-                        ]
-    [ 
-      HH.slot UA._userAdd unit UA.userAdd unit listen,
-      HH.slot UL._list unit UL.list state.userIDs absurd
-    ]
+  render state =
+    HH.div [ HC.style do
+               display flex
+               flexDirection column
+               height $ vh $ toNumber 100
+           ]
+           [
+             HH.nav [ classes [H.ClassName "navbar", H.ClassName "is-dark"]
+                      ,
+                      role "navigation"
+                      ,
+                      HC.style $ height $ vh $ toNumber 5
+                      -- ,
+                      -- aria-label="main navigation">
+                    ]
+                    [ HH.div [ class_ (H.ClassName "navbar-bland") ]
+                             [ HH.p [ HC.style do
+                                        color whitesmoke
+                                        padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+                                      ,
+                                      class_ $ H.ClassName "title"
+                                    ]
+                                    [ HH.text "WatchingU" ] 
+                             ]
+                    ]
+             ,
+             HH.div [ HC.style do
+                        display flex
+                        flexDirection column
+                        height $ vh $ toNumber 95
+                    ]
+                    [
+                      HH.slot UA._userAdd unit UA.userAdd unit listen
+                      ,
+                      HH.slot UL._list unit UL.list state.userIDs absurd
+                    ]
+           ]
 
   eval :: Query ~> H.HalogenM State Query ChildSlots Void Aff
   eval (ReadUserID userID next) = do

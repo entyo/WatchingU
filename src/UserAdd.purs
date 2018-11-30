@@ -53,7 +53,7 @@ userAdd =
   render state =
       HH.div [ HC.style do
                  height $ px $ toNumber 40
-                 padding (em 0.5) (em 0.5) (em 0.5) (em 0.5)
+                 padding (em 1.2) (em 1.2) (em 1.2) (em 1.2)
              ]
       [
         HH.div [ HC.style $ display flex ] 
