@@ -52,7 +52,7 @@ userAdd =
   render :: State -> H.ComponentHTML Query () m
   render state =
       HH.div [ HC.style do
-                 height $ px $ toNumber 40
+                 height $ px $ toNumber 80
                  padding (em 1.2) (em 1.2) (em 1.2) (em 1.2)
              ]
       [
