@@ -2,7 +2,7 @@ module UserTimeLine where
 
 import Affjax as AJ
 import Affjax.ResponseFormat as ResponseFormat
-import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGrow, flexShrink, height, marginBottom, marginLeft, marginTop, padding, pct, px, width)
+import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGrow, flexShrink, height, marginBottom, marginLeft, marginRight, marginTop, padding, pct, px, width)
 import CSS.Common (auto)
 import CSS.Overflow (overflowY, scroll)
 import Control.Parallel (parTraverse)
@@ -60,6 +60,8 @@ user username =
     HH.div [ HC.style do
                display flex
                flexDirection column
+               marginRight $ em 2.5
+               width $ px $ toNumber 480
                height $ pct $ toNumber 100 
            ] [ HH.p [ classes [ H.ClassName "subtitle", H.ClassName "is-4"],
                       HC.style do
@@ -67,7 +69,15 @@ user username =
                         marginTop $ px $ toNumber 0
                         marginBottom $ px $ toNumber 0
                     ] 
-                    [ HH.text username ]
+                    [ HH.span [ class_ (H.ClassName "icon"), HC.style $ marginRight $ px $ toNumber 10 ]
+                              [ HH.i [ classes [ H.ClassName "fas",                               H.ClassName "fa-user"
+                                               ]
+                                     ]
+                                     [] 
+                              ]
+                      ,
+                      HH.text username
+                    ]
                , HH.p [ HC.style (display if state.loading then block else displayNone) ] [ HH.text "読み込み中…" ]
                , HH.div [ HC.style do
                             flexGrow 1
@@ -165,7 +175,7 @@ renderItem :: forall f m. TimeLineItem' -> H.ComponentHTML f () m
 renderItem item
 -- HH.a [ HP.href item.url ] [HH.p_ [ HH.text item.title ]
   | Just tUrl <- item.thumbnailUrl = 
-    HH.div [ class_ (H.ClassName "card") ]
+    HH.div [ class_ (H.ClassName "card"), HC.style $ marginBottom $ em 0.8 ]
       [ HH.div [class_ (H.ClassName "card-image")]
         [ HH.figure [class_ (H.ClassName "image")]
           [ HH.img [ HP.src tUrl ] ] 
@@ -178,13 +188,13 @@ renderItem item
           ]
         , HH.footer [ class_ (H.ClassName "card-footer") ]
           [ HH.p [ class_ (H.ClassName "card-footer-item") ]
-            [ HH.a [ HP.href item.url ] 
+            [ HH.a [ HP.href item.url, HP.target "_blank" ] 
               [ HH.text "見に行く" ]
             ]
           ]
       ]
   | otherwise = 
-    HH.div [ class_ (H.ClassName "card"), HC.style $ marginBottom $ em 0.5 ]
+    HH.div [ class_ (H.ClassName "card"), HC.style $ marginBottom $ em 0.8 ]
       [ 
         HH.div [ class_ (H.ClassName "card-content") ]
           [ HH.p [ classes [ (H.ClassName "title"), (H.ClassName "is-5") ] ] 
@@ -194,7 +204,7 @@ renderItem item
           ]
         , HH.footer [ class_ (H.ClassName "card-footer") ]
           [ HH.p [ class_ (H.ClassName "card-footer-item") ]
-            [ HH.a [ HP.href item.url ] 
+            [ HH.a [ HP.href item.url, HP.target "_blank" ] 
               [ HH.text "見に行く" ]
             ]
           ]

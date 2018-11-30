@@ -2,8 +2,9 @@ module UserList where
 
 import Prelude
 
-import CSS (em, height, margin, padding, pct, px)
+import CSS (display, em, flex, height, padding, pct, width)
 import CSS.Flexbox (flexGrow)
+import CSS.Overflow (overflowX, scroll)
 import Data.Array (filter, snoc)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
@@ -14,7 +15,6 @@ import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
 import Halogen.HTML.Events as HE
-import Halogen.HTML.Properties (class_)
 import UserTimeLine as UT
 
 data Query a
@@ -57,10 +57,12 @@ list =
             ]
             [ HH.div_ [
                 HH.div [
-                  class_ (H.ClassName "columns"),
                   HC.style do
-                    margin (px 0.0) (px 0.0) (px 0.0) (px 0.0)
+                    display flex
+                    padding (em 1.2) (em 0.0) (em 1.2) (em 0.0)
                     height $ pct $ 90.0
+                    width  $ pct $ 100.0
+                    overflowX scroll
                 ]
                 (map renderUser st)
             ]
@@ -68,14 +70,12 @@ list =
 
   renderUser :: String -> H.ComponentHTML Query ChildSlots Aff
   renderUser id =
-    HH.div
-      [ class_ (H.ClassName "column") ]
-      [ HH.slot UT._user id
-        -- pass userID
-        (UT.user id)
-        unit
-        (HE.input (HandleUserMessage id))
-      ]
+    HH.div_ [ HH.slot UT._user id
+              -- pass userID
+              (UT.user id)
+              unit
+              (HE.input (HandleUserMessage id))
+            ]
 
   eval :: Query ~> H.HalogenM State Query ChildSlots Void Aff
   eval (AddUser id next) = do
