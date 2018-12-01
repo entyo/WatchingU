@@ -1,0 +1,13 @@
+sudo: required
+dist: trusty
+language: nix
+script:
+  - nix-shell --run make
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local_dir: 
+  on:
+    branch: purs

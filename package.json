@@ -9,9 +9,8 @@
   "scripts": {
     "start": "yarn build:watch & parcel index.html",
     "build:watch": "pulp --psc-package -w build",
-    "build:prod": "pulp --psc-package build -O --to built.js && parcel build built.js",
-    "test": "pulp --psc-package test",
-    "postinstall": "psc-package install"
+    "build:prod": "pulp --psc-package build -O --to built.js && NODE_ENV=production parcel build index.html --public-url /WatchingU/",
+    "test": "pulp --psc-package test"
   },
   "author": "e_ntyo",
   "license": "MIT",
