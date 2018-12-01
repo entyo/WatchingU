@@ -1,5 +1,6 @@
 # WatchingU
 
-RSS reader for Internet geek.
+Fetch one's blog/tech posts https://entyo.github.io/WatchingU
 
-This purescript project is based on https://github.com/justinwoo/halogen-parcel-hot-reload-demo. Thank you so much :heart:
+![](https://i.imgur.com/e6bfMaV.png)
+
