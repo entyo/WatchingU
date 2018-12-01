@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: xenial
 language: nix
 script:
   - nix-shell --run make
@@ -8,6 +8,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  local_dir: 
+  local_dir: dist
   on:
     branch: purs

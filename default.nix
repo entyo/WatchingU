@@ -12,6 +12,8 @@ in pkgs.stdenv.mkDerivation {
   name = "easy-purescript";
 
   buildInputs = easy-ps.buildInputs ++ [
+    # error purescript@0.12.1: The engine "node" is incompatible with this module. Expected version ">=8.10.0".
+    pkgs.nodejs-10_x
     pkgs.jq
     pkgs.nix-prefetch-git
   ];
