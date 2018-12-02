@@ -6,7 +6,7 @@ import CSS (block, column, display, displayNone, em, flex, flexDirection, flexGr
 import CSS.Common (auto)
 import CSS.Overflow (overflowY, scroll)
 import Control.Parallel (parTraverse)
-import Data.Array (sortBy, zip, (!!))
+import Data.Array (length, sortBy, zip, (!!))
 import Data.Either (Either(..))
 import Data.Int (toNumber)
 import Data.JSDate (JSDate, parse, toDateString)
@@ -24,7 +24,7 @@ import Halogen.HTML.Properties (class_, classes)
 import Halogen.HTML.Properties as HP
 import Hatena as Hatena
 import Medium as Medium
-import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, otherwise, pure, show, ($), (<$>))
+import Prelude (type (~>), Unit, append, bind, compare, const, discard, map, not, otherwise, pure, show, ($), (<$>), (==))
 import Qiita as Qiita
 
 -- | The task component query algebra.
@@ -78,7 +78,6 @@ user username =
                       ,
                       HH.text username
                     ]
-               , HH.p [ HC.style (display if state.loading then block else displayNone) ] [ HH.text "読み込み中…" ]
                , HH.div [ HC.style do
                             flexGrow 1
                             flexShrink 1
@@ -86,9 +85,11 @@ user username =
                             overflowY scroll
                         ]
                   case state.items of
-                    Nothing -> []
+                    Nothing -> if not state.loading then [ HH.text "投稿が見つかりませんでした…" ] else [ HH.text "読み込み中…" ]
                     Just items ->
-                      [ HH.div_ (map renderItem items) ]
+                      [ HH.div_ if length items == 0 then [HH.text "投稿が見つかりませんでした…" ]
+                                                     else map renderItem items
+                      ]
                 , HH.div [ HC.style $ height $ px $ toNumber 50 ] 
                          [ HH.div [ HC.style do
                                       width $ pct $ toNumber 100
