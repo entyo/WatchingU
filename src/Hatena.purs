@@ -1,11 +1,12 @@
 module Hatena where
 
-import Prelude ((<>))
 import Data.Either (Either)
-import Foreign (ForeignError)
 import Data.List.NonEmpty (NonEmptyList)
-import YQL as YQL
+import Data.String (Pattern(..), Replacement(..), replaceAll)
+import Foreign (ForeignError)
+import Prelude ((<>))
 import Simple.JSON (readJSON)
+import YQL as YQL
 
 type Response = {
   description :: String,
@@ -20,8 +21,11 @@ type Response = {
   }
 }
 
+hatenize :: String -> String
+hatenize = replaceAll (Pattern "_") (Replacement "-")
+
 buildUrlByUserName :: String -> String
-buildUrlByUserName username = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url='http://" <> username <> ".hatenablog.com/rss'&format=json"
+buildUrlByUserName username = "https://query.yahooapis.com/v1/public/yql?q=select * from rss where url='http://" <> hatenize username <> ".hatenablog.com/rss'&format=json"
 
 type Decoded = Either (NonEmptyList ForeignError) (YQL.Response Response)
 
