@@ -3,13 +3,11 @@ module Container where
 import Prelude
 
 import CSS (color, column, display, em, flex, flexDirection, height, padding, vh, whitesmoke)
-import Data.Array (snoc)
+import Data.Array (filter, length, snoc)
 import Data.Int (toNumber)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Effect.Aff (Aff)
-import Effect.Console (log)
-import Halogen (liftEffect)
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as HC
@@ -35,6 +33,9 @@ type ChildSlots =
 
 initialState :: State
 initialState = { userIDs: [] }
+
+hasIt :: String -> Array String -> Boolean
+hasIt id ids = length (filter (\x -> x == id) ids) /= 0
 
 container :: H.Component HH.HTML Query Unit Void Aff
 container =
@@ -99,9 +100,7 @@ container =
         case uids of
           Nothing -> pure next
           Just ids -> do
-            let userIDs = (ids `snoc` uid)
-            liftEffect $ (log $ "uid: " <> uid)
-            liftEffect $ (log $ "uids: " <>  show userIDs)
+            let userIDs = if (not hasIt uid ids) || length ids == 0 then (ids `snoc` uid) else ids
             H.put { userIDs }
             pure next
 

@@ -93,7 +93,6 @@ userAdd =
       _userID <- H.gets _.userID
       case _userID of
         Nothing -> do
-          H.raise $ AddedUserID ""
           pure next
         Just id -> do
           H.raise $ AddedUserID id
