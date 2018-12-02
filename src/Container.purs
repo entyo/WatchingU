@@ -100,8 +100,6 @@ container =
           Nothing -> pure next
           Just ids -> do
             let userIDs = (ids `snoc` uid)
-            liftEffect $ (log $ "uid: " <> uid)
-            liftEffect $ (log $ "uids: " <>  show userIDs)
             H.put { userIDs }
             pure next
 

@@ -91,8 +91,6 @@ list =
   eval (HandleInput newList next) = do
     oldList <- H.get
     when (oldList /= newList) $ H.put newList
-    liftEffect $ (log $ "oldList: " <> show oldList)
-    liftEffect $ (log $ "newList: " <> show newList)
     pure next
   eval (GetUserIDs reply) = do
     ids  <- H.get
