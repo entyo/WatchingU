@@ -2,5 +2,6 @@
 
 Fetch one's blog/tech posts https://entyo.github.io/WatchingU
 
-![](https://i.imgur.com/e6bfMaV.png)
+Since [YQL(Yahoo query language) ended up](https://weather-ydn-yql.media.yahoo.com/forecastrss), this application is currently unavailable :bow:
 
+![](https://i.imgur.com/e6bfMaV.png)
