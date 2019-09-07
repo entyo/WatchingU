@@ -1,7 +1,5 @@
 # WatchingU
 
-Fetch one's blog/tech posts https://entyo.github.io/WatchingU
-
-Since [YQL(Yahoo query language) was retired](https://developer.yahoo.com/yql), this application is temporaly unavailable :bow:
+`@e_ntyo` とか入力すると、 `@e_ntyo` のスライドとかブログ記事をインターネットから集めてきて表示してくれます。
 
 ![](https://i.imgur.com/e6bfMaV.png)
